@@ -5,6 +5,24 @@
     <title>diagnosis</title>
 </head>
 <body>
-
+<h1>{{ doctor.name }}的诊断记录</h1>
+<table border="0">
+    <th>患者ID</th>
+    <th>患者姓名</th>
+    <th>诊断时间</th>
+    {% for rec in diagnosis_records%}
+    <tr>
+        <td>{{ rec.patient.identity_card_no }}</td>
+        <td>{{ rec.patient.name }}</td>
+        <td>{{ rec.create_time }}</td>
+        <td><form action="" method="post">
+            {% csrf_token %}
+                    <input type="hidden" name="diagnosis" value={{ rec.id }}>
+                    <input type="submit"  value="诊断详情">
+                    </form>
+        </td>
+    </tr>
+{% endfor %}
+</table>
 </body>
 </html>

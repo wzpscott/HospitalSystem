@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>info</title>
+    <title>个人信息</title>
 </head>
 <body>
-
+医生姓名：{{ doctor.name }}
+<br>
+医生身份证号:{{ doctor.identity_card_no}}
+<br>
+医生部门:{{ doctor.get_department_display }}
+<br>
+医生职称:{{ doctor.get_title_display }}
+<br>
+医生性别:{{ doctor.get_gender_display }}
+<br>
+简介:{{ doctor.description }}
+<a href="/doctor/info_edit_description/">
+    <button class="btn btn-primary btn-lg">编辑我的信息</button>
+</a>
 </body>
 </html>

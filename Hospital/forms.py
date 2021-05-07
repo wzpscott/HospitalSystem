@@ -2,7 +2,7 @@ from django import forms
 
 
 class LoginForm(forms.Form):
-    ID = forms.CharField(label="ID", max_length=128)
+    identity_card_no = forms.CharField(label="身份证号", max_length=128)
     password = forms.CharField(label="密码", max_length=256, widget=forms.PasswordInput)
 
 
@@ -34,3 +34,7 @@ class DoctorRegisterForm(forms.Form):
     department = forms.CharField(max_length=64, widget=forms.Select(choices=department_choices))  # 科室
     title = forms.CharField(max_length=64, widget=forms.Select(choices=title_choices))  # 职称
     description = forms.CharField(max_length=500, widget=forms.Textarea, required=False)  # 简介
+
+
+class DescriptionModifyForm(forms.Form):
+    description = forms.CharField(max_length=500, widget=forms.Textarea)

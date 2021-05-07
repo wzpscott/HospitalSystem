@@ -6,7 +6,8 @@ from . import forms
 
 def register(request):
     if request.session.get('is_login', None):
-        return redirect('/index/')
+        login_type = request.session['login_type']
+        return redirect(f'/{login_type}/index/')
 
     if request.method == 'POST':
         register_form = forms.DoctorRegisterForm(request.POST)
@@ -47,14 +48,17 @@ def register(request):
 
 
 def login(request):
+    if request.session.get('is_login', None):
+        login_type = request.session['login_type']
+        return redirect(f'/{login_type}/index/')
     if request.method == 'POST':
         login_form = forms.LoginForm(request.POST)
         message = '请检查填写的内容！'
         if login_form.is_valid():
-            ID = login_form.cleaned_data.get('ID')
+            identity_card_no = login_form.cleaned_data.get('identity_card_no')
             password = login_form.cleaned_data.get('password')
 
-            doctor = models.Doctor.objects.filter(id=ID)
+            doctor = models.Doctor.objects.filter(identity_card_no=identity_card_no)
             if not doctor:
                 message = '用户不存在'
                 return render(request, 'doctor/login.html', locals())
@@ -65,7 +69,7 @@ def login(request):
                 return render(request, 'doctor/login.html', locals())
             request.session['is_login'] = True
             request.session['login_type'] = 'doctor'
-            request.session['ID'] = ID
+            request.session['identity_card_no'] = identity_card_no
             return redirect('/doctor/index/')
         else:
             return render(request, 'doctor/login.html', locals())
@@ -87,16 +91,54 @@ def index(request):
 
 
 def info(request):
-    pass
+    identity_card_no = request.session['identity_card_no']
+    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
+    return render(request, 'doctor/info.html', {'doctor': doctor})
+
+
+def info_edit_description(request):
+    identity_card_no = request.session['identity_card_no']
+    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
+    if request.method == 'POST':
+        description_form = forms.DescriptionModifyForm(request.POST)
+        if description_form.is_valid():
+            doctor.description = description_form.cleaned_data.get('description')
+            doctor.save()
+            message = '修改成功!'
+        else:
+            message = '输入不合法!'
+        return redirect('/doctor/info/')
+    else:
+        description_form = forms.DescriptionModifyForm(initial={'description': doctor.description})
+        return render(request, 'doctor/info_edit_description.html', locals())
 
 
 def pendingDiagnosis(request):
+    identity_card_no = request.session['identity_card_no']
+    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
+    appointment_records = models.Appointment.objects.filter(doctor=doctor, isActive=True)
+    if request.method == 'POST':
+        request.session['diagnosis'] = request.POST.get('diagnosis')
+        return redirect('/doctor/pendingDiagnosis/detail')
+    return render(request, 'doctor/pending.html', locals())
+
+
+def pendingDiagnosisDetail(request):
     pass
 
 
 def diagnosis(request):
-    pass
+    identity_card_no = request.session['identity_card_no']
+    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
+    diagnosis_records = models.Diagnosis.objects.filter(doctor=doctor)
+    if request.method == 'POST':
+        request.session['diagnosis'] = request.POST.get('diagnosis')
+        return redirect('/doctor/diagnosis/detail')
+    return render(request, 'doctor/diagnosis.html', locals())
 
 
 def diagnosisDetail(request):
-    pass
+    record = models.Diagnosis.objects.get(id=request.session['diagnosis'])
+    medicines = models.MedicineRequest.objects.filter(diagnosis=record)
+    return render(request, 'doctor/detail.html', locals())
+

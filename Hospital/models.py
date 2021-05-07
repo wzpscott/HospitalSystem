@@ -7,6 +7,7 @@ gender_choices = (
 
 
 class Patient(models.Model):
+
     name = models.CharField(max_length=10)  # 姓名
     password = models.CharField(max_length=32)  # 密码
     gender = models.CharField(max_length=32, choices=gender_choices)  # 性别
@@ -68,7 +69,7 @@ class Appointment(models.Model):
 class Diagnosis(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)  # 患者
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)  # 医生
-    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE)  # 对应的挂号
+    appointment = models.ForeignKey(Appointment, on_delete=models.CASCADE, null=True)  # 对应的挂号
     create_time = models.DateTimeField(auto_now_add=True)  # 创建时间
     detail = models.TextField()  # 诊断详情
 

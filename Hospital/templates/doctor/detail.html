@@ -5,6 +5,34 @@
     <title>detail</title>
 </head>
 <body>
-
+<table>
+    <tr>
+        <th>诊断编号</th>
+        <td>{{ record.id }}</td>
+    </tr>
+    <tr>
+        <th>患者</th>
+        <td>{{ record.patient.name }}</td>
+    </tr>
+    <tr>
+        <th>创建时间</th>
+        <td>{{ record.create_time }}</td>
+    </tr>
+    <tr>
+        <th>诊断详情</th>
+        <td>{{ record.detail }}</td>
+    </tr>
+    <tr>
+        <th>药品</th>
+        <td>
+            {% for med in medicines %}
+                {{ med.medicine }}:
+                {{ med.amount }}
+                {{ med.medicine.get_unit_display }}
+                <br>
+            {% endfor %}
+        </td>
+    </tr>
+</table>
 </body>
 </html>
