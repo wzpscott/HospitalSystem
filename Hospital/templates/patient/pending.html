@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>pending</title>
+</head>
+<body>
+<h1>{{ patient.name }}的待诊断列表</h1>
+<table border="0">
+    <th>医生姓名</th>
+    <th>预约时间</th>
+    {% for rec in appointment_records%}
+    <tr>
+        <td>{{ rec.patient.identity_card_no }}</td>
+        <td>{{ rec.patient.name }}</td>
+        <td>{{ rec.appointment_time }}</td>
+        <td><form action="" method="post">
+            {% csrf_token %}
+                    <input type="hidden" name="appointment"" value={{ rec.id }}>
+                    <input type="submit"  value="去诊断">
+                    </form>
+        </td>
+    </tr>
+{% endfor %}
+</table>
+</body>
+</html>

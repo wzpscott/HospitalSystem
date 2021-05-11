@@ -109,11 +109,19 @@ def appointmentDetail(request):
 
 
 def diagnosis(request):
-    pass
+    identity_card_no = request.session['identity_card_no']
+    patient = models.Patient.objects.get(identity_card_no=identity_card_no)
+    diagnosis_records = models.Diagnosis.objects.filter(patient=patient)
+    if request.method == 'POST':
+        request.session['diagnosis'] = request.POST.get('diagnosis')
+        return redirect('/patient/diagnosis/detail')
+    return render(request, 'patient/diagnosis.html', locals())
 
 
 def diagnosisDetail(request):
-    pass
+    record = models.Diagnosis.objects.get(id=request.session['diagnosis'])
+    medicines = models.MedicineRequest.objects.filter(diagnosis=record)
+    return render(request, 'patient/detail.html', locals())
 
 
 def bill(request):
