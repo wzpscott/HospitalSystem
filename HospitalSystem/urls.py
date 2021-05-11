@@ -34,4 +34,6 @@ urlpatterns = [
     path('patient/login/', patientViews.login),
     path('patient/logout/', patientViews.logout),
     path('patient/register/', patientViews.register),
+    path('patient/index/', patientViews.index),
+    path('patient/info/', patientViews.info),
 ]

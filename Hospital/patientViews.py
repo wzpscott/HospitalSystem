@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from . import models
 from . import forms
 
+
 def entry(request):
     pass
 
@@ -28,7 +29,7 @@ def register(request):
                 message = '两次输入的密码不同！'
                 return render(request, 'patient/register.html', locals())
             else:
-                same_ic = models.patient.objects.filter(identity_card_no=identity_card_no)
+                same_ic = models.Patient.objects.filter(identity_card_no=identity_card_no)
                 if same_ic:
                     message = '身份证号已经注册'
                     return render(request, 'patient/register.html', locals())
@@ -82,7 +83,21 @@ def login(request):
 
 
 def logout(request):
-    pass
+    if request.session.get('is_login', None):
+        request.session['is_login'] = False
+        request.session['login_type'] = None
+        request.session['ID'] = None
+        return redirect('/index/')
+
+
+def index(request):
+    return render(request, 'patient/index.html', locals())
+
+
+def info(request):
+    identity_card_no = request.session['identity_card_no']
+    patient = models.Patient.objects.get(identity_card_no=identity_card_no)
+    return render(request, 'patient/info.html', {'patient': patient})
 
 
 def makeAppointment(request):
@@ -90,10 +105,6 @@ def makeAppointment(request):
 
 
 def appointmentDetail(request):
-    pass
-
-
-def info(request):
     pass
 
 

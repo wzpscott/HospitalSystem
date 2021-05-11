@@ -18,7 +18,7 @@ class PatientRegisterForm(forms.Form):
     identity_card_no = forms.CharField(max_length=32)  # 身份证号
     medical_insurance = forms.BooleanField()  # 是否有医保
     telephone_no = forms.CharField(max_length=32)  # 电话号码
-    birth_date = forms.DateField()  # 出生日期
+    birth_date = forms.DateField(label='日期', widget=forms.DateInput(attrs={'type':'date'}))  # 出生日期
 
 class DoctorRegisterForm(forms.Form):
     gender_choices = (
