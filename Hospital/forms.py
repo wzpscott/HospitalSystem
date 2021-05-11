@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import formset_factory,ModelForm
+from . import models
 
 
 class LoginForm(forms.Form):
@@ -38,3 +40,19 @@ class DoctorRegisterForm(forms.Form):
 
 class DescriptionModifyForm(forms.Form):
     description = forms.CharField(max_length=500, widget=forms.Textarea)
+
+
+class DiagnosisDetailForm(forms.Form):
+    detail = forms.CharField(max_length=500, widget=forms.Textarea)
+
+
+class DiagnosisMedicineForm(forms.Form):
+    medicine_choices = []
+    for medicine in models.Medicine.objects.all():
+        medicine_choices.append((medicine, medicine))
+    medicine_choices = tuple(medicine_choices)
+    medicine = forms.ChoiceField(choices=medicine_choices)
+    amount = forms.IntegerField()
+
+
+DiagnosisFormset = formset_factory(DiagnosisMedicineForm, extra=1)

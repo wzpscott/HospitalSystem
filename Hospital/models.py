@@ -86,7 +86,7 @@ class Medicine(models.Model):
         ('ml', '毫升'),
         ('box', '盒')
     )
-    name = models.CharField(max_length=50)  # 药品名称
+    name = models.CharField(max_length=50, unique=True)  # 药品名称
     inventory = models.IntegerField()  # 库存量
     unit = models.CharField(max_length=10, choices=unit_choices)  # 单位
     price = models.DecimalField(max_digits=7, decimal_places=2)  # 单价
@@ -99,6 +99,9 @@ class MedicineRequest(models.Model):
     diagnosis = models.ForeignKey(Diagnosis, on_delete=models.CASCADE)
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     amount = models.IntegerField()
+
+    class Meta:
+        unique_together = ("diagnosis", "medicine")
 
     def __str__(self):
         return self.diagnosis.id.__str__()+':'+self.medicine.name+self.amount.__str__()+self.medicine.get_unit_display()

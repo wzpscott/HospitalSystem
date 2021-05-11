@@ -5,6 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-
+    医生：{{ diag.doctor }}
+    <p>
+    患者：{{ diag.patient }}
+    <p>
+    <form class=""  method="post">
+        {% csrf_token %}
+        {{ detail_form }}
+        <br>
+        {{ medicine_formset.management_form }}
+        {% for form in medicine_formset %}
+            {{ form.medicine }}
+            {{ form.amount }}
+            <br>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary float-right" value="add">增加药品</button>
+        <button type="submit" class="btn btn-primary float-right" value="submit">提交</button>
+        <a href="/doctor/pendingDiagnosis/" class="text-success " ><ins>返回</ins></a>
+    </form>
 </body>
 </html>

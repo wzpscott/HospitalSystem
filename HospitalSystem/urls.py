@@ -24,7 +24,7 @@ urlpatterns = [
     path('doctor/login/', doctorViews.login),
     path('doctor/logout/', doctorViews.logout),
     path('doctor/register/', doctorViews.register),
-    path('doctor/index/', doctorViews.index),
+    path('doctor/', doctorViews.index),
     path('doctor/pendingDiagnosis/', doctorViews.pendingDiagnosis),
     path('doctor/pendingDiagnosis/detail', doctorViews.pendingDiagnosisDetail),
     path('doctor/diagnosis/', doctorViews.diagnosis),

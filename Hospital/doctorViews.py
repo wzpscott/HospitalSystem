@@ -7,7 +7,7 @@ from . import forms
 def register(request):
     if request.session.get('is_login', None):
         login_type = request.session['login_type']
-        return redirect(f'/{login_type}/index/')
+        return redirect(f'/{login_type}/')
 
     if request.method == 'POST':
         register_form = forms.DoctorRegisterForm(request.POST)
@@ -50,7 +50,7 @@ def register(request):
 def login(request):
     if request.session.get('is_login', None):
         login_type = request.session['login_type']
-        return redirect(f'/{login_type}/index/')
+        return redirect(f'/{login_type}/')
     if request.method == 'POST':
         login_form = forms.LoginForm(request.POST)
         message = '请检查填写的内容！'
@@ -70,7 +70,7 @@ def login(request):
             request.session['is_login'] = True
             request.session['login_type'] = 'doctor'
             request.session['identity_card_no'] = identity_card_no
-            return redirect('/doctor/index/')
+            return redirect('/doctor/')
         else:
             return render(request, 'doctor/login.html', locals())
 
@@ -118,13 +118,67 @@ def pendingDiagnosis(request):
     doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
     appointment_records = models.Appointment.objects.filter(doctor=doctor, isActive=True)
     if request.method == 'POST':
-        request.session['diagnosis'] = request.POST.get('diagnosis')
+        request.session['appointment_id'] = request.POST.get('appointment')
         return redirect('/doctor/pendingDiagnosis/detail')
     return render(request, 'doctor/pending.html', locals())
 
 
 def pendingDiagnosisDetail(request):
-    pass
+    identity_card_no = request.session['identity_card_no']
+    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
+
+    appointment_id = request.session['appointment_id']
+    appointment = models.Appointment.objects.get(id=appointment_id)
+
+    if models.Diagnosis.objects.filter(appointment=appointment):
+        diag = models.Diagnosis.objects.filter(appointment=appointment)[0]
+    else:
+        diag = models.Diagnosis()
+        diag.doctor = doctor
+        diag.patient = appointment.patient
+        diag.appointment = appointment
+        diag.save()
+
+    initial_formset = []
+    for req in models.MedicineRequest.objects.filter(diagnosis=diag):
+        initial_formset.append({'medicine': req.medicine, 'amount': req.amount})
+
+    if request.method == 'POST':
+        detail_form = forms.DiagnosisDetailForm(request.POST)
+        medicine_formset = forms.DiagnosisFormset(request.POST)
+
+        if detail_form.is_valid() and medicine_formset.is_valid():
+            detail = detail_form.cleaned_data.get('detail')
+            diag.detail = detail
+            diag.save()
+
+            n = int(request.POST['form-TOTAL_FORMS'])
+            data = medicine_formset.cleaned_data
+
+            for i in range(n):
+                medicine_name = data[i].get('medicine')
+                medicine = models.Medicine.objects.get(name=medicine_name)
+                amount = data[i].get('amount')
+                medicine_request = models.MedicineRequest.objects.filter(medicine=medicine)
+                if medicine_request:
+                    medicine_request = medicine_request[0]
+                    medicine_request.amount = amount
+                else:
+                    medicine_request = models.MedicineRequest()
+                    medicine_request.diagnosis = diag
+                    medicine_request.medicine = medicine
+                    medicine_request.amount = amount
+                medicine_request.save()
+
+            detail_form = forms.DiagnosisDetailForm(initial={'detail': diag.detail})
+            medicine_formset = forms.DiagnosisFormset(initial=initial_formset)
+
+            return render(request, 'doctor/pending_detail.html', locals())
+
+    else:
+        detail_form = forms.DiagnosisDetailForm(initial={'detail':diag.detail})
+        medicine_formset = forms.DiagnosisFormset(initial=initial_formset)
+    return render(request, 'doctor/pending_detail.html', locals())
 
 
 def diagnosis(request):
@@ -140,5 +194,6 @@ def diagnosis(request):
 def diagnosisDetail(request):
     record = models.Diagnosis.objects.get(id=request.session['diagnosis'])
     medicines = models.MedicineRequest.objects.filter(diagnosis=record)
+
     return render(request, 'doctor/detail.html', locals())
 
