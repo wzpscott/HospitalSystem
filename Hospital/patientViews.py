@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.utils import timezone
+
 from . import models
 from . import forms
 
@@ -101,11 +103,23 @@ def info(request):
 
 
 def makeAppointment(request):
-    pass
+    records = models.Doctor.objects.all()
+    if request.method == 'POST':
+        appointment = models.Appointment()
+        appointment.patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
+        appointment.doctor = models.Doctor.objects.get(identity_card_no=request.POST.get('appointment_doctor_id'))
+        appointment.create_time = timezone.now()
+        appointment.appointment_time = request.POST.get('appointment_time')
+        appointment.isActive = True
+        appointment.save()
+        request.session['appointment_id'] = appointment.id
+        return redirect('/patient/makeAppointment/detail')
+    return render(request, 'patient/makeAppointment.html', locals())
 
 
 def appointmentDetail(request):
-    pass
+    appointment = models.Appointment.objects.get(id=request.session['appointment_id'])
+    return render(request, 'patient/appointmentDetail.html', locals())
 
 
 def diagnosis(request):

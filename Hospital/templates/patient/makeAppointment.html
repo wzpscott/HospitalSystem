@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>makeAppointment</title>
+</head>
+<body>
+<h1>预约挂号</h1>
+<table border="0">
+    <th>姓名</th>
+    <th>性别</th>
+    <th>科室</th>
+    <th>职称</th>
+    {% for rec in records%}
+    <tr>
+        <td>{{ rec.name }}</td>
+        <td>{{ rec.gender }}</td>
+        <td>{{ rec.department }}</td>
+        <td>{{ rec.title }}</td>
+        <td><form action="" method="post">
+            {% csrf_token %}
+                    <input type="date" name="appointment_time">
+                    <input type="hidden" name="appointment_doctor_id" value={{ rec.identity_card_no }}>
+                    <input type="submit"  value="预约">
+                    </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

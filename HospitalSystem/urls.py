@@ -38,4 +38,6 @@ urlpatterns = [
     path('patient/info/', patientViews.info),
     path('patient/diagnosis/', patientViews.diagnosis),
     path('patient/diagnosis/detail', patientViews.diagnosisDetail),
+    path('patient/makeAppointment', patientViews.makeAppointment),
+    path('patient/makeAppointment/detail', patientViews.appointmentDetail),
 ]
