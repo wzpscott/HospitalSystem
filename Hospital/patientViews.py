@@ -122,6 +122,13 @@ def appointmentDetail(request):
     return render(request, 'patient/appointmentDetail.html', locals())
 
 
+def appointment(request):
+    identity_card_no = request.session['identity_card_no']
+    patient = models.Patient.objects.get(identity_card_no=identity_card_no)
+    appointments = models.Appointment.objects.filter(patient=patient)
+    return render(request, 'patient/appointment.html', locals())
+
+
 def diagnosis(request):
     identity_card_no = request.session['identity_card_no']
     patient = models.Patient.objects.get(identity_card_no=identity_card_no)

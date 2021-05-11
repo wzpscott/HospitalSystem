@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>appointment</title>
+</head>
+<body>
+<h1>{{ patient.name }}的预约记录</h1>
+<table border="0">
+    <th>医生姓名</th>
+    <th>医生科室</th>
+    <th>医生职称</th>
+    <th>预约时间</th>
+    {% for rec in appointments%}
+    <tr>
+        <td>{{ rec.doctor.name }}</td>
+        <td>{{ rec.doctor.department }}</td>
+        <td>{{ rec.doctor.title }}</td>
+        <td>{{ rec.appointment_time }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
