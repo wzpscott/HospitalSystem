@@ -6,6 +6,20 @@ class LoginForm(forms.Form):
     password = forms.CharField(label="密码", max_length=256, widget=forms.PasswordInput)
 
 
+class PatientRegisterForm(forms.Form):
+    gender_choices = (
+        ('male', "男"),
+        ('female', "女"),
+    )
+    name = forms.CharField(max_length=10)  # 姓名
+    password1 = forms.CharField(max_length=32, widget=forms.PasswordInput)  # 密码
+    password2 = forms.CharField(max_length=32, widget=forms.PasswordInput)
+    gender = forms.CharField(max_length=32, widget=forms.Select(choices=gender_choices))  # 性别
+    identity_card_no = forms.CharField(max_length=32)  # 身份证号
+    medical_insurance = forms.BooleanField()  # 是否有医保
+    telephone_no = forms.CharField(max_length=32)  # 电话号码
+    birth_date = forms.DateField()  # 出生日期
+
 class DoctorRegisterForm(forms.Form):
     gender_choices = (
         ('male', "男"),
