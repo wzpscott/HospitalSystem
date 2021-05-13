@@ -1,14 +1,67 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
-    <title>index</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医院信息系统</title>
+    <link rel="stylesheet" href="{% static 'Hospital/css/entry.css' %}">
 </head>
+
 <body>
-<a href="/patient/login/">患者登录</a>
-<p>
-<a href="/doctor/login/">医生登录</a>
-<p>
-<a href="/admin/">管理人员登录</a>
+    <!-- 头部区域start -->
+    <div class="header w">
+        <div class="logo">
+            <a href="index.html"><img src="{% static 'Hospital/img/logo.png' %}"></a>
+        </div>
+        <!-- 搜索模块search -->
+        <div class="search">
+            <form action="登录入口.html" method="get">
+                <input type="text" placeholder="请输入关键词搜索" name="showkeycode" class="search_text" onfocus="" onblur="">
+                <input type="submit" value="搜索" class="search_button">
+            </form>
+        </div>
+    </div>
+    <!-- 头部区域end -->
+
+    <!-- banner部分start -->
+    <div class="banner w">
+        <p>系统登陆入口</p>
+    </div>
+    <!-- banner部分end -->
+
+    <!-- 入口选择start -->
+    <div class="box w">
+        <ul class="clearfix">
+            <li class="pass1">
+                <a href="/patient/login/" target="_blank" onclick="">
+                    <h3>用户入口</h3>
+                    <div class="info">用户登录入口（可查询个人挂号信息、就诊记录、明细等）</div>
+                </a>
+            </li>
+            <li>
+                <a href="/doctor/login/" target="_blank" onclick="">
+                    <h3>医护入口</h3>
+                    <div class="info">医护人员入口（可查看待诊断记录，病人诊断记录等信息）</div>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/" target="_blank" onclick="">
+                    <h3>管理人员入口</h3>
+                    <div class="info">管理人员入口（进行系统维护）</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 入口选择end -->
+
+    <!-- footer模块制作 -->
+    <div class="footer">
+        <p>—————— &nbsp End &nbsp ——————</p><br />
+        <p>2021 © 北航校医院</p>
+    </div>
 </body>
+
 </html>

@@ -1,0 +1,173 @@
+/* 用通配符选择器*来选择清除整个页面内外边距 */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 去掉所有li前面的圆点 */
+
+li {
+    list-style: none;
+}
+
+
+/* 所有链接去掉下划线 */
+
+a {
+    text-decoration: none;
+}
+
+
+/* 给精品推荐模块去浮动 */
+
+.clearfix：before,
+.clearfix::after {
+    content: "";
+    display: table;
+}
+
+.clearfix::after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+body {
+    /* CSS3 抗锯齿形 让文字显示的更加清晰 */
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    font: 12px/1.5 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+    color: #666;
+}
+
+
+/* 定义整个盒子的宽度，即页面的可视范围 */
+
+.w {
+    width: 1200px;
+    margin: auto;
+}
+
+
+/* 头部区域 */
+
+.header {
+    height: 116px;
+    margin: 15px auto;
+}
+
+.logo {
+    float: left;
+    width: 400px;
+    height: 80px;
+    margin: 16px 0 16px 0;
+}
+
+
+/* search搜索模块 */
+
+.search {
+    float: left;
+    width: 412px;
+    height: 42px;
+    margin-left: 350px;
+    margin-top: 35px;
+}
+
+.search .search_text {
+    float: left;
+    width: 345px;
+    height: 40px;
+    border: 1px solid #3ab7fd;
+    border-right: 0;
+    font-size: 14px;
+    padding-left: 15px;
+    /* "\5B8B\4F53" 就是宋体的意思 这样浏览器兼容性比较好 */
+    font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+    outline: none;
+}
+
+.search .search_button {
+    float: left;
+    width: 50px;
+    height: 42px;
+    /* 手动去掉背景边框 */
+    border: 0;
+    /* 添加背景图background:url（图片路径） */
+    background: skyblue;
+    cursor: pointer
+}
+
+
+/* banner区域 */
+
+.banner {
+    height: 120px;
+    text-align: center;
+}
+
+.banner p {
+    display: inline-block;
+    font-size: 60px;
+    font-family: 微软雅黑;
+    color: blue;
+}
+
+
+/* 入口选择区域 */
+
+.box {
+    margin-top: 30px;
+}
+
+
+/* 把ul修改的足够宽，就不存在换行的问题了 */
+
+.box ul {
+    /* 此处通过计算得出 */
+    width: 1225px;
+}
+
+.box ul li {
+    float: left;
+    /* 盒子的实际宽度要减去左右外边距的宽度 */
+    width: 228px;
+    height: 270px;
+    margin-right: 50px;
+    background-color: skyblue;
+}
+
+.box ul li h3 {
+    margin: 20px 20px 10px 25px;
+    font-size: 30px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: solid 1px #b0d9fb;
+}
+
+.box ul .pass1 {
+    margin-left: 200px;
+}
+
+.box .info {
+    font-size: 18px;
+    line-height: 30px;
+    color: #ffffff;
+    text-align: justify;
+    padding: 0 24px;
+}
+
+
+/* footer区域 */
+
+.footer {
+    height: 60px;
+    text-align: center;
+    margin-top: 100px;
+    color: #bfbfbf;
+}

@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,18 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户注册表单正则表达式验证代码</title>
-    <link rel="stylesheet" href="{% static 'Hospital/css/style.css' %}">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div class="login">
         <h1>Login</h1>
-        <form class="form-login" action="/doctor/login/" method="post">
-            {% if message %}
-            <div class="alert alert-warning">{{ message }}</div>
-            {% endif %}
-            {% csrf_token %}
-            {{ login_form.as_table }}
+        <form action="" autocomplete="off">
             <ul>
                 <li><label for="">身份证号：</label><input type="text" name="" id="sfz" placeholder="请输入身份证号"><img src="" alt=""><br>
                     <p></p>
@@ -31,7 +25,7 @@
                         <div id="verify_box">
                             <div id="verify_xbox">
                                 <div id="btn2">
-                                    <img class="img" src="{% static 'Hospital/img/lllllll.png' %}" />
+                                    <img class="img" src="img/lllllll.png" />
                                 </div>
                             </div>
                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;按住滑块，拖动到最右边
@@ -44,12 +38,12 @@
         </form>
         <div class="btn1">立即登录</div>
         <div style="position:absolute;margin-left: 210px;margin-top: 50px;">
-            <h6 style="text-align: center;">没有账号？<a href="register_doctor.html">注册</a></h6>
+            <h6 style="text-align: center;">没有账号？<a href="register_patient.html">注册</a></h6>
         </div>
         <div id="mask">注册成功</div>
         <div class="load"></div>
-        <script type="text/javascript" src="{% static 'Hospital/js/slide.js' %}"></script>
-        <script type="text/javascript" src="{% static 'Hospital/js/login.js' %}"></script>
+        <script type="text/javascript" src="js/slide.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
     </div>
 
     <div class="footer w">

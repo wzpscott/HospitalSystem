@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册表单正则表达式验证代码</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="register">
+        <h1>Register</h1>
+        <form action="" autocomplete="off">
+            <ul>
+                <li><label for="">姓名：</label><input type="text" name="" id="na" placeholder="姓名"><img src="" alt=""><br>
+                    <p>至少1个中文字符或字母组合</p><br></li>
+                <li><label for="">密码：</label><input type="password" name="" id="pawd" placeholder="密码"><img src="" alt=""><br>
+                    <p>6~16个字符，区分大小写</p><span id="ruo">弱</span><span id="zo">中</span><span id="qiang">强</span><br></li>
+                <li><label for="">确认密码：</label><input type="password" name="" id="pwd" placeholder="确认密码"><img src="" alt=""><br>
+                    <p>请再次填写密码</p>
+                </li>
+                <li><label for="">身份证号：</label><input type="text" name="" id="sfz" placeholder="请输入身份证号"><img src="" alt=""><br>
+                    <p>请填写正确的身份证号</p>
+                </li>
+                <li><label for="">性别：</label><input class="gender" type="radio" checked="checked" name="gender" value="男" />男&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <input class="gender" type="radio" name="gender" value="女">女</li>
+                <li><label for="">科室：</label><select style="width:100px;height: 25px;margin-left: 5px;" name="" id="department"></select></li>
+                <li><label for="">职称：</label><select style="width:100px;height: 25px;margin-left: 5px;" name="" id="title"></select></li>
+                <li><label for="">个人简介：</label>
+                    <textarea id="description" name="" placeholder="请描述..." cols='33' rows='5'></textarea></li>
+            </ul>
+        </form>
+        <div class="btn1">立即注册</div>
+        <div style="position:absolute;margin-left: 210px;margin-top: 80px;">
+            <h6 style="text-align: center;">已有账号？<a href="login_doctor.html">登陆</a></h6>
+        </div>
+        <div id="mask">注册成功</div>
+        <div class="load"></div>
+        <script type="text/javascript" src="js/slide.js"></script>
+        <script type="text/javascript" src="js/register_doctor.js"></script>
+    </div>
+
+    <div class="footer w">
+        <p>—————— &nbsp End &nbsp ——————</p><br />
+        <p>2021 © 北航校医院</p>
+    </div>
+</body>
+
+</html>
