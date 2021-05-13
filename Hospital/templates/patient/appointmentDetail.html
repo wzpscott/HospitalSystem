@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>appointmentDetail</title>
+</head>
+<body>
+<h1>预约成功</h1>
+<table>
+    <tr>
+        <th>诊断编号</th>
+        <td>{{ appointment.id }}</td>
+    </tr>
+    <tr>
+        <th>患者</th>
+        <td>{{ appointment.patient.name }}</td>
+    </tr>
+    <tr>
+        <th>医生</th>
+        <td>{{ appointment.doctor.name }}</td>
+    </tr>
+    <tr>
+        <th>创建时间</th>
+        <td>{{ appointment.create_time }}</td>
+    </tr>
+    <tr>
+        <th>预约时间</th>
+        <td>{{ appointment.appointment_time }}</td>
+    </tr>
+    <tr>
+        <th>是否有效</th>
+        <td>{{ appointment.isActive }}</td>
+    </tr>
+</table>
+</body>
+</html>
