@@ -19,10 +19,11 @@
         <td>{{ rec.get_title_display }}</td>
         <td><form action="" method="post">
             {% csrf_token %}
-                    <input type="date" name="appointment_time">
-                    <input type="hidden" name="appointment_doctor_id" value={{ rec.identity_card_no }}>
-                    <input type="submit"  value="预约">
-                    </form>
+            <input type="date" name="appointment_date">
+            <input type="checkbox" name="appointment_time">
+            <input type="hidden" name="appointment_doctor_id" value={{ rec.identity_card_no }}>
+            <input type="submit"  value="预约">
+            </form>
         </td>
     </tr>
     {% endfor %}

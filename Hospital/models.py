@@ -53,14 +53,19 @@ class Doctor(models.Model):
 
 
 class Appointment(models.Model):
+    time_choices = (
+        ('Morning','上午'),
+        ('Afternoon','下午')
+    )
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE) # 患者
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)  # 医生
     create_time = models.DateTimeField(auto_now_add=True)  # 创建时间
-    appointment_time = models.DateTimeField()  # 预约时间
+    appointment_date = models.DateTimeField()  # 预约日期
+    appointment_time = models.CharField(max_length=10, choices=time_choices) # 预约时间（上下午）
     isActive = models.BooleanField(default=True)  # 是否有效
 
     def __str__(self):
-        return self.patient.name+'-'+self.doctor.name+'-'+self.appointment_time.__str__()
+        return self.patient.name+'-'+self.doctor.name+'-'+self.appointment_date.__str__()+self.get_appointment_time_display()
 
     class Meta:
         ordering = ["-create_time"]
