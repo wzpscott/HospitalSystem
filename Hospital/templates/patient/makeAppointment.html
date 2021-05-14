@@ -20,7 +20,13 @@
         <td><form action="" method="post">
             {% csrf_token %}
             <input type="date" name="appointment_date">
-            <input type="checkbox" name="appointment_time">
+{#            <input type="select" name="appointment_time"><option value="volvo">Volvo</option>#}
+{#                                                        <option value="saab">Saab</option>#}
+
+            <select name="appointment_time" >
+              <option value="Morning">上午</option>
+              <option value="Afternoon">下午</option>
+            </select>
             <input type="hidden" name="appointment_doctor_id" value={{ rec.identity_card_no }}>
             <input type="submit"  value="预约">
             </form>

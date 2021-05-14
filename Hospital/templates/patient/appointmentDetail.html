@@ -25,11 +25,14 @@
     </tr>
     <tr>
         <th>预约时间</th>
-        <td>{{ appointment.appointment_time }}</td>
+        <td>{{ appointment.get_appointment_time_display }}</td>
     </tr>
     <tr>
         <th>是否有效</th>
-        <td>{{ appointment.isActive }}</td>
+        <td>{% if appointment.isActive %} 是
+            {% else %} 否
+            {% endif %}
+        </td>
     </tr>
 </table>
 </body>

@@ -109,7 +109,7 @@ def makeAppointment(request):
         appointment.patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
         appointment.doctor = models.Doctor.objects.get(identity_card_no=request.POST.get('appointment_doctor_id'))
         appointment.appointment_time = request.POST.get('appointment_time')
-        appointment.appointment_date= request.POST.get('appointment_date')
+        appointment.appointment_date = request.POST.get('appointment_date')
         appointment.isActive = True
         appointment.save()
         request.session['appointment_id'] = appointment.id

@@ -70,3 +70,12 @@ class DiagnosisMedicineForm(forms.Form):
 
 
 DiagnosisFormset = formset_factory(DiagnosisMedicineForm, extra=1)
+
+
+class AppointmentForm(forms.Form):
+    time_choices = (
+        ('Morning','上午'),
+        ('Afternoon','下午')
+    )
+    appointment_date = forms.DateField()
+    appointment_time = forms.ChoiceField(choices=time_choices)
