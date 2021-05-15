@@ -1,39 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
     <meta charset="UTF-8">
-    <title>appointmentDetail</title>
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <title>AppointmentDetail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/Hospital/css/me.css">
 </head>
 <body>
-<h1>预约成功</h1>
-<table>
-    <tr>
-        <th>诊断编号</th>
-        <td>{{ appointment.id }}</td>
-    </tr>
-    <tr>
-        <th>患者</th>
-        <td>{{ appointment.patient.name }}</td>
-    </tr>
-    <tr>
-        <th>医生</th>
-        <td>{{ appointment.doctor.name }}</td>
-    </tr>
-    <tr>
-        <th>创建时间</th>
-        <td>{{ appointment.create_time }}</td>
-    </tr>
-    <tr>
-        <th>预约时间</th>
-        <td>{{ appointment.get_appointment_time_display }}</td>
-    </tr>
-    <tr>
-        <th>是否有效</th>
-        <td>{% if appointment.isActive %} 是
-            {% else %} 否
-            {% endif %}
-        </td>
-    </tr>
-</table>
+
+    <!--导航-->
+    <nav class="ui inverted  segment m-padded-tb-large m-shadow-small teal m-opacity-mini">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h1 class="ui header">医院管理系统</h1>
+            </div>
+        </div>
+
+    </nav>
+
+    <!--中间内容-->
+    <div class="m-container-small m-padded-tb-big">
+        <div class="container">
+            <!--头部-->
+            <div class="ui top attached rounded padded segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">预约成功</h3>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ui attached segment">
+                <div class="ui segment m-width-middle">
+                    <div class="ui list m-padded-lr">
+                        <div class="item m-text">诊断编号: {{ appointment.id }}</div>
+                        <div class="item m-text">患者姓名: {{ appointment.patient.name }}</div>
+                        <div class="item m-text">医生姓名: {{ appointment.doctor.name }}</div>
+                        <div class="item m-text">创建时间: {{ appointment.create_time }}</div>
+                        <div class="item m-text">预约时间: {{ appointment.get_appointment_time_display }}</div>
+                        <div class="item m-text">是否有效: {% if appointment.isActive %} 是 {% else %} 否 {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+            </div>
+
+
+    <br>
+    <br>
+    <br>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
 </body>
 </html>
