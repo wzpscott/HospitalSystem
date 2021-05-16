@@ -72,10 +72,10 @@ def login(request):
             request.session['identity_card_no'] = identity_card_no
             return redirect('/doctor/')
         else:
-            return render(request, 'doctor/login.html', locals())
+            return render(request, 'doctor/login_old.html', locals())
 
     login_form = forms.LoginForm()
-    return render(request, 'doctor/login.html', locals())
+    return render(request, 'doctor/login_old.html', locals())
 
 
 def logout(request):
