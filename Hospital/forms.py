@@ -4,8 +4,8 @@ from . import models
 
 
 class LoginForm(forms.Form):
-    identity_card_no = forms.CharField(label="身份证号", max_length=128)
-    password = forms.CharField(label="密码", max_length=256, widget=forms.PasswordInput)
+    identity_card_no = forms.CharField(label="身份证号", max_length=128, widget=forms.TextInput(attrs={'id': 'sfz', 'class': 'form-control', 'placeholder': "身份证号",'autofocus': ''}))
+    password = forms.CharField(label="密码", max_length=256, widget=forms.PasswordInput(attrs={'id': 'pwd', 'class': 'form-control','placeholder': "密码"}))
 
 
 class PatientRegisterForm(forms.Form):

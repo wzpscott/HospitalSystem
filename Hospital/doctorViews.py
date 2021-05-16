@@ -83,7 +83,7 @@ def logout(request):
         request.session['is_login'] = False
         request.session['login_type'] = None
         request.session['ID'] = None
-        return redirect('/index/')
+        return redirect('/Hospital/')
 
 
 def index(request):

@@ -1,27 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="{% static 'Hospital/css/style.css' %}">
 </head>
+
 <body>
- <div class="container">
-    <div class="col">
-        <form class="form-login" action="/patient/login/" method="post">
-          {% if message %}
-            <div class="alert alert-warning">{{ message }}</div>
-          {% endif %}
-          {% csrf_token %}
-          <h3 class="text-center">欢迎登录</h3>
+    <div class="login">
+        <h1>Login</h1>
+        <form  class="form-login" action="/patient/login/" autocomplete="off" method="post">
+            {% csrf_token %}
+            <ul>
+                <li><p style="font-style: red; color: red;">{{ message }}</p></li>
+                <li><label for="">身份证号：</label>{{ login_form.identity_card_no }}</li>
+                <li><label for="">密码：</label>{{ login_form.password }}</li>
+                <li>
+                    <div class="verify">
+                        <div id="verify_box">
+                            <div id="verify_xbox">
+                                <div id="btn2">
+                                    <img class="img" src="{% static 'Hospital/img/slide.png' %}" />
+                                </div>
+                            </div>
+                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;按住滑块，拖动到最右边
+                        </div>
 
-          {{ login_form.as_table }}
+                    </div>
+                    <h6 style="margin-left:160px;margin-top: 10px;">请滑动上方滑块验证</h6>
+                </li>
+            </ul>
+            <button class="btn1" type="submit" style="border-style: none; outline: none; background-color: transparent;">立即登录</button>
 
-          <div>
-              <a href="/patient/register/" class="text-success " ><ins>注册</ins></a>
-              <button type="submit" class="btn btn-primary float-right">登录</button>
-          </div>
         </form>
+
+        <div style="position:absolute;margin-left: 210px;margin-top: 50px;">
+            <h6 style="text-align: center;">没有账号？<a href="/patient/register">注册</a></h6>
+        </div>
+        <div id="mask">注册成功</div>
+        <div class="load"></div>
+        <script type="text/javascript" src="{% static 'Hospital/js/slide.js' %}"></script>
+        <script type="text/javascript" src="{% static 'Hospital/js/login.js' %}"></script>
     </div>
+
+    <div class="footer w">
+        <p>—————— &nbsp End &nbsp ——————</p><br />
+        <p>2021 © 北航校医院</p>
     </div>
 </body>
+
 </html>

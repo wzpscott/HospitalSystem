@@ -63,7 +63,6 @@ def login(request):
         if login_form.is_valid():
             identity_card_no = login_form.cleaned_data.get('identity_card_no')
             password = login_form.cleaned_data.get('password')
-
             patient = models.Patient.objects.filter(identity_card_no=identity_card_no)
             if not patient:
                 message = '用户不存在'
@@ -89,7 +88,7 @@ def logout(request):
         request.session['is_login'] = False
         request.session['login_type'] = None
         request.session['ID'] = None
-        return redirect('/index/')
+        return redirect('/Hospital/')
 
 
 def index(request):
