@@ -1,27 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="{% static 'Hospital/css/style.css' %}">
 </head>
+
 <body>
-<div class="container">
-    <div class="col">
-        <form class="form-login" action="/patient/register/" method="post">
-          {% if message %}
-            <div class="alert alert-warning">{{ message }}</div>
-          {% endif %}
-          {% csrf_token %}
-          <h3 class="text-center">患者注册</h3>
-
-          {{ register_form.as_ul }}
-
-          <div>
-              <button type="submit" class="btn btn-primary float-right">注册</button>
-          </div>
+    <div class="register">
+        <h1>Register</h1>
+        <form action="/patient/register/" autocomplete="off" method="post">
+            {% csrf_token %}
+            <ul>
+                <li><label for="">姓名：</label>{{ register_form.name }}<br>
+                    <p>至少1个中文字符或字母组合</p><br></li>
+                <li><label for="">密码：</label>{{ register_form.password1 }}<br>
+                    <p>6~16个字符，区分大小写</p><span id="ruo">弱</span><span id="zo">中</span><span id="qiang">强</span><br></li>
+                <li><label for="">确认密码：</label>{{ register_form.password2 }}<br>
+                    <p>请再次填写密码</p>
+                </li>
+                <li><label for="">手机号：</label>{{ register_form.telephone_no }}<br>
+                    <p>请填写正确的手机号码</p><br></li>
+                </li>
+                <li><label for="">身份证号：</label>{{ register_form.identity_card_no }}<br>
+                    <p>请填写正确的身份证号</p>
+                </li>
+                <li><label for="">性别：</label><input class="gender" type="radio" checked="checked" name="gender" value="male" />男&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <input class="gender" type="radio" name="gender" value="female">女</li>
+                <li><label for="">医保：</label><input class="insurance" type="radio" checked="checked" name="medical_insurance" value="True" />有&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                    <input class="insurance" type="radio" name="medical_insurance" value="False">无</li>
+                <li>
+                    <label for="">出生日期：</label>{{ register_form.birth_date }}
+                </li>
+            </ul>
+            <button class="btn1" type="submit" style="border-style: none; outline: none; background-color: transparent;">立即注册</button>
         </form>
+        <div style="position:absolute;margin-left: 210px;margin-top: 80px;">
+            <h6 style="text-align: center;">已有账号？<a href="patient/login">登陆</a></h6>
+        </div>
+        <div id="mask">注册成功</div>
+        <div class="load"></div>
+        <script type="text/javascript" src="{% static 'Hospital/js/slide.js' %}"></script>
+        <script src="{% static 'Hospital/js/register_patient.js' %}"></script>
     </div>
+
+    <div class="footer w">
+        <p>—————— &nbsp End &nbsp ——————</p><br />
+        <p>2021 © 北航校医院</p>
     </div>
 </body>
-</body>
+
 </html>

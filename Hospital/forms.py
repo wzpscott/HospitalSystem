@@ -13,13 +13,13 @@ class PatientRegisterForm(forms.Form):
         ('male', "男"),
         ('female', "女"),
     )
-    name = forms.CharField(max_length=10)  # 姓名
-    password1 = forms.CharField(max_length=32, widget=forms.PasswordInput)  # 密码
-    password2 = forms.CharField(max_length=32, widget=forms.PasswordInput)
-    gender = forms.CharField(max_length=32, widget=forms.Select(choices=gender_choices))  # 性别
-    identity_card_no = forms.CharField(max_length=32)  # 身份证号
+    name = forms.CharField(max_length=10, widget=forms.TextInput(attrs={'placeholder': '姓名'}))  # 姓名
+    password1 = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={'id': 'pwd', 'placeholder': "密码"}))  # 密码
+    password2 = forms.CharField(max_length=32, widget=forms.PasswordInput(attrs={'id': 'pwd', 'placeholder': "确认密码"}))
+    gender = forms.CharField(max_length=32, widget=forms.RadioSelect(choices=gender_choices, attrs={'class': 'gender'}))  # 性别
+    identity_card_no = forms.CharField(max_length=32, widget=forms.TextInput(attrs={'placeholder': '请输入身份证号'}))  # 身份证号
     medical_insurance = forms.BooleanField()  # 是否有医保
-    telephone_no = forms.CharField(max_length=32)  # 电话号码
+    telephone_no = forms.CharField(max_length=32, widget=forms.TextInput(attrs={'placeholder': '手机号'}))  # 电话号码
     birth_date = forms.DateField(label='日期', widget=forms.DateInput(attrs={'type':'date'}))  # 出生日期
 
 class DoctorRegisterForm(forms.Form):

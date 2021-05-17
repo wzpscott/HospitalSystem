@@ -22,9 +22,11 @@ def register(request):
             name = register_form.cleaned_data.get('name')
             password1 = register_form.cleaned_data.get('password1')
             password2 = register_form.cleaned_data.get('password2')
-            gender = register_form.cleaned_data.get('gender')
+            # gender = register_form.cleaned_data.get('gender')
+            gender = request.POST.get('gender')
             identity_card_no = register_form.cleaned_data.get('identity_card_no')
-            medical_insurance = register_form.cleaned_data.get('medical_insurance')
+            # medical_insurance = register_form.cleaned_data.get('medical_insurance')
+            medical_insurance = request.POST.get('medical_insurance')
             telephone_no = register_form.cleaned_data.get('telephone_no')
             birth_date = register_form.cleaned_data.get('birth_date')
             if password1 != password2:
