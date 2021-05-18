@@ -7,7 +7,7 @@ from . import forms
 def register(request):
     if request.session.get('is_login', None):
         login_type = request.session['login_type']
-        return redirect(f'/{login_type}/')
+        return redirect(f'/{login_type}/index')
 
     if request.method == 'POST':
         register_form = forms.DoctorRegisterForm(request.POST)
@@ -16,7 +16,8 @@ def register(request):
             name = register_form.cleaned_data.get('name')
             password1 = register_form.cleaned_data.get('password1')
             password2 = register_form.cleaned_data.get('password2')
-            gender = register_form.cleaned_data.get('gender')
+            # gender = register_form.cleaned_data.get('gender')
+            gender = request.POST.get('gender')
             identity_card_no = register_form.cleaned_data.get('identity_card_no')
             department = register_form.cleaned_data.get('department')
             title = register_form.cleaned_data.get('title')
@@ -50,7 +51,7 @@ def register(request):
 def login(request):
     if request.session.get('is_login', None):
         login_type = request.session['login_type']
-        return redirect(f'/{login_type}/')
+        return redirect(f'/{login_type}/index')
     if request.method == 'POST':
         login_form = forms.LoginForm(request.POST)
         message = '请检查填写的内容！'
@@ -70,7 +71,7 @@ def login(request):
             request.session['is_login'] = True
             request.session['login_type'] = 'doctor'
             request.session['identity_card_no'] = identity_card_no
-            return redirect('/doctor/')
+            return redirect('/doctor/index')
         else:
             return render(request, 'doctor/login.html', locals())
 
