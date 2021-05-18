@@ -1,27 +1,74 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <title>诊断</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/Hospital/css/me.css">
 </head>
 <body>
-    医生：{{ diag.doctor }}
-    <p>
-    患者：{{ diag.patient }}
-    <p>
-    <form class=""  method="post">
-        {% csrf_token %}
-        {{ detail_form }}
-        <br>
-        {{ medicine_formset.management_form }}
-        {% for form in medicine_formset %}
-            {{ form.medicine }}
-            {{ form.amount }}
-            <br>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary float-right" value="add">增加药品</button>
-        <button type="submit" class="btn btn-primary float-right" value="submit">提交</button>
-        <a href="/doctor/pendingDiagnosis/" class="text-success " ><ins>返回</ins></a>
-    </form>
+
+    <!--导航-->
+    <nav class="ui inverted segment m-padded-tb-large m-shadow-small teal m-opacity-mini">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h1 class="ui header">医院管理系统</h1>
+            </div>
+        </div>
+
+    </nav>
+
+    <!--中间内容-->
+    <div class="m-container-small m-padded-tb-big">
+        <div class="container">
+            <!--头部-->
+            <div class="ui top attached rounded padded segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">患者诊断</h3>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ui attached segment">
+                <div class="ui segment m-width-middle">
+                    <div class="ui list m-padded-lr">
+                        <div class="item m-text">医生：{{ diag.doctor }}</div>
+                        <div class="item m-text">患者：{{ diag.patient }}</div>
+                        <form class=""  method="post">
+                            {% csrf_token %}
+                            {{ detail_form }}
+                            <br>
+                            {{ medicine_formset.management_form }}
+                            {% for form in medicine_formset %}
+                                {{ form.medicine }}
+                                {{ form.amount }}
+                                <br>
+                            {% endfor %}
+
+                            <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" value="add">增加药品</button>
+                            <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" value="submit">提交</button>
+                            <a href="/doctor/pendingDiagnosis/" class="ui teal centered button  text-success  m-margin-tb-small" ><ins>返回</ins></a>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
 </body>
 </html>

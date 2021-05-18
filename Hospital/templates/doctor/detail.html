@@ -1,38 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ch">
 <head>
     <meta charset="UTF-8">
-    <title>detail</title>
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <title>个人信息</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/Hospital/css/me.css">
 </head>
 <body>
-<table>
-    <tr>
-        <th>诊断编号</th>
-        <td>{{ record.id }}</td>
-    </tr>
-    <tr>
-        <th>患者</th>
-        <td>{{ record.patient.name }}</td>
-    </tr>
-    <tr>
-        <th>创建时间</th>
-        <td>{{ record.create_time }}</td>
-    </tr>
-    <tr>
-        <th>诊断详情</th>
-        <td>{{ record.detail }}</td>
-    </tr>
-    <tr>
-        <th>药品</th>
-        <td>
-            {% for med in medicines %}
-                {{ med.medicine }}:
-                {{ med.amount }}
-                {{ med.medicine.get_unit_display }}
-                <br>
-            {% endfor %}
-        </td>
-    </tr>
-</table>
+
+    <!--导航-->
+    <nav class="ui inverted  segment m-padded-tb-large m-shadow-small teal m-opacity-mini">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h1 class="ui header">医院管理系统</h1>
+            </div>
+        </div>
+    </nav>
+
+    <!--中间内容-->
+    <div class="m-container-small m-padded-tb-big">
+        <div class="container">
+            <!--头部-->
+            <div class="ui top attached rounded padded segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">诊断详情</h3>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ui attached segment">
+                <div class="ui segment m-width-middle">
+                    <div class="ui list m-padded-lr">
+                        <div class="item m-text">诊断编号: {{ record.id }}</div>
+                        <div class="item m-text">患者: {{ record.patient.name }}</div>
+                        <div class="item m-text">创建时间: {{ record.create_time }}</div>
+                        <div class="item m-text">诊断详情: {{ record.detail }}</div>
+                        <div class="item m-text">药品：
+                            {% for med in medicines %}
+                                {{ med.medicine }}:
+                                {{ med.amount }}
+                                {{ med.medicine.get_unit_display }}
+                                <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+                            {% endfor %}
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+            </div>
+
+
+    <br>
+    <br>
+    <br>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
 </body>
 </html>

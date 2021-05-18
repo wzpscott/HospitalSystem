@@ -7,7 +7,7 @@ def root(request):
 
 
 def index(request):
-    if request.session.get('is_login', None):
+    '''if request.session.get('is_login', None):
         login_type = request.session['login_type']
-        return redirect(f'/{login_type}/index/')
+        return redirect(f'/{login_type}/index/')'''
     return render(request, 'Hospital/index.html')
