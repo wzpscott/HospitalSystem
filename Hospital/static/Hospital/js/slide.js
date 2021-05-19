@@ -31,7 +31,7 @@ element.onmousedown = function(e) {
             d.style.border='1px solid #f00'
         }else{
             l=b;
-            xbox.innerHTML='<div id="btn2"><img style="margin-top:2px" class="img" src="img/d.svg"/></div>';
+            xbox.innerHTML='<div id="btn2"><img style="margin-top:2px" class="img" src="/static/Hospital/img/d.svg"/></div>'
             d.nextElementSibling.innerText="验证通过";
             d.style.border='none';
             d.nextElementSibling.style.color="#090";
