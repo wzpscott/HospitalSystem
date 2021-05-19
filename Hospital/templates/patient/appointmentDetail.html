@@ -39,7 +39,8 @@
                         <div class="item m-text">患者姓名: {{ appointment.patient.name }}</div>
                         <div class="item m-text">医生姓名: {{ appointment.doctor.name }}</div>
                         <div class="item m-text">创建时间: {{ appointment.create_time }}</div>
-                        <div class="item m-text">预约时间: {{ appointment.get_appointment_time_display }}</div>
+                        <div class="item m-text">预约时间: {{ appointment.appointment_date }}</div>
+                        <div class="item m-text">预约时段: {{ appointment.get_appointment_time_display }}</div>
                         <div class="item m-text">是否有效: {% if appointment.isActive %} 是 {% else %} 否 {% endif %}
                         </div>
 

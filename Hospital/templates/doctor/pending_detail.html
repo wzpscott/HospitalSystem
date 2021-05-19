@@ -40,7 +40,8 @@
                         <div class="item m-text">患者：{{ diag.patient }}</div>
                         <form class=""  method="post">
                             {% csrf_token %}
-                            {{ detail_form }}
+                            <div class="item m-text">详情：</div>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ detail_form.detail }}
                             <br>
                             {{ medicine_formset.management_form }}
                             {% for form in medicine_formset %}

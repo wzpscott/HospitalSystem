@@ -48,7 +48,7 @@
                             <tr>
                                 <td>{{ rec.patient.identity_card_no }}</td>
                                 <td>{{ rec.patient.name }}</td>
-                                <td>{{ rec.appointment_time }}</td>
+                                <td>{{ rec.get_appointment_time_display }}</td>
                                 <td>
                                     <form action="" method="post">
                                         {% csrf_token %}
