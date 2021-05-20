@@ -61,12 +61,12 @@ class DiagnosisDetailForm(forms.Form):
 
 
 class DiagnosisMedicineForm(forms.Form):
-    medicine_choices = []
+    medicine_choices = [('', '----')]
     for medicine in models.Medicine.objects.all():
         medicine_choices.append((medicine, medicine))
     medicine_choices = tuple(medicine_choices)
-    medicine = forms.ChoiceField(choices=medicine_choices)
-    amount = forms.IntegerField()
+    medicine = forms.ChoiceField(choices=medicine_choices, required=False)
+    amount = forms.IntegerField(required=False)
 
 
 DiagnosisFormset = formset_factory(DiagnosisMedicineForm, extra=1)
@@ -74,8 +74,8 @@ DiagnosisFormset = formset_factory(DiagnosisMedicineForm, extra=1)
 
 class AppointmentForm(forms.Form):
     time_choices = (
-        ('Morning','上午'),
-        ('Afternoon','下午')
+        ('Morning', '上午'),
+        ('Afternoon', '下午')
     )
     appointment_date = forms.DateField()
     appointment_time = forms.ChoiceField(choices=time_choices)

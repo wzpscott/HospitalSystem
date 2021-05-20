@@ -1,5 +1,6 @@
 from django.db import models
 
+
 gender_choices = (
         ('male', "男"),
         ('female', "女"),
@@ -105,8 +106,8 @@ class MedicineRequest(models.Model):
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     amount = models.IntegerField()
 
-    class Meta:
-        unique_together = ("diagnosis", "medicine")
+    # class Meta:
+    #     unique_together = ("diagnosis", "medicine")
 
     def __str__(self):
         return self.diagnosis.id.__str__()+':'+self.medicine.name+self.amount.__str__()+self.medicine.get_unit_display()

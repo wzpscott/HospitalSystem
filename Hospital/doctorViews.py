@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.forms import formset_factory
 from . import models
 from . import forms
 
@@ -118,6 +119,7 @@ def pendingDiagnosis(request):
     identity_card_no = request.session['identity_card_no']
     doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
     appointment_records = models.Appointment.objects.filter(doctor=doctor, isActive=True)
+    appointment_records = appointment_records.order_by('-appointment_date', '-appointment_time')  # 逆序排序
     if request.method == 'POST':
         request.session['appointment_id'] = request.POST.get('appointment')
         return redirect('/doctor/pendingDiagnosis/detail')
@@ -131,55 +133,81 @@ def pendingDiagnosisDetail(request):
     appointment_id = request.session['appointment_id']
     appointment = models.Appointment.objects.get(id=appointment_id)
 
-    if models.Diagnosis.objects.filter(appointment=appointment):
+    if models.Diagnosis.objects.filter(appointment=appointment):  # 假如已经创建过诊断
         diag = models.Diagnosis.objects.filter(appointment=appointment)[0]
-    else:
+    else:  # 假如没有创建过诊断
         diag = models.Diagnosis()
         diag.doctor = doctor
         diag.patient = appointment.patient
         diag.appointment = appointment
         diag.save()
 
-    initial_formset = []
-    for req in models.MedicineRequest.objects.filter(diagnosis=diag):
-        initial_formset.append({'medicine': req.medicine, 'amount': req.amount})
+    if f'initial_formset_{diag.id}' not in request.session:
+        DiagnosisFormset = formset_factory(forms.DiagnosisMedicineForm, extra=0)
+        initial_formset = []
+        for req in models.MedicineRequest.objects.filter(diagnosis=diag):
+            initial_formset.append({'medicine': req.medicine, 'amount': req.amount})
+    else:
+        DiagnosisFormset = formset_factory(forms.DiagnosisMedicineForm, extra=1)
+        initial_formset = request.session[f'initial_formset_{diag.id}']
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        detail_form = forms.DiagnosisDetailForm(initial={'detail': diag.detail})
+        medicine_formset = DiagnosisFormset(initial=initial_formset)
+        return render(request, 'doctor/pending_detail.html', locals())
+
+    elif request.method == 'POST':
         detail_form = forms.DiagnosisDetailForm(request.POST)
-        medicine_formset = forms.DiagnosisFormset(request.POST)
-
-        if detail_form.is_valid() and medicine_formset.is_valid():
+        if detail_form.is_valid():
             detail = detail_form.cleaned_data.get('detail')
             diag.detail = detail
             diag.save()
 
-            n = int(request.POST['form-TOTAL_FORMS'])
-            data = medicine_formset.cleaned_data
+        if 'add' in request.POST:
+            medicine_formset = DiagnosisFormset(request.POST)
+            if medicine_formset.is_valid():
+                data = medicine_formset.cleaned_data
+                initial_formset = []
+                for d in data:
+                    initial_formset.append(
+                        {'medicine': d.get('medicine'),
+                         'amount': d.get('amount')}
+                    )
+                request.session[f'initial_formset_{diag.id}'] = initial_formset
+            return redirect('/doctor/pendingDiagnosis/detail')
 
-            for i in range(n):
-                medicine_name = data[i].get('medicine')
-                medicine = models.Medicine.objects.get(name=medicine_name)
-                amount = data[i].get('amount')
-                medicine_request = models.MedicineRequest.objects.filter(medicine=medicine)
-                if medicine_request:
-                    medicine_request = medicine_request[0]
-                    medicine_request.amount = amount
-                else:
-                    medicine_request = models.MedicineRequest()
-                    medicine_request.diagnosis = diag
-                    medicine_request.medicine = medicine
-                    medicine_request.amount = amount
-                medicine_request.save()
+        if 'delete' in request.POST:
+            del request.session[f'initial_formset_{diag.id}']
+            return redirect('/doctor/pendingDiagnosis/detail')
 
-            detail_form = forms.DiagnosisDetailForm(initial={'detail': diag.detail})
-            medicine_formset = forms.DiagnosisFormset(initial=initial_formset)
+        if 'submit' in request.POST:
+            models.MedicineRequest.objects.filter(diagnosis=diag).delete()  # 删除原有数据
+            medicine_formset = DiagnosisFormset(request.POST)
+            if medicine_formset.is_valid():  # 获取最新数据
+                data = medicine_formset.cleaned_data
+                initial_formset = []
+                for d in data:
+                    initial_formset.append(
+                        {'medicine': d.get('medicine'),
+                         'amount': d.get('amount')}
+                    )
 
-            return render(request, 'doctor/pending_detail.html', locals())
+            for d in initial_formset:
+                medicine = models.Medicine.objects.get(name=d['medicine'])
+                amount = d['amount']
+                new_medicine_request = models.MedicineRequest()
+                new_medicine_request.diagnosis = diag
+                new_medicine_request.medicine = medicine
+                new_medicine_request.amount = amount
+                new_medicine_request.save()
 
-    else:
-        detail_form = forms.DiagnosisDetailForm(initial={'detail':diag.detail})
-        medicine_formset = forms.DiagnosisFormset(initial=initial_formset)
-    return render(request, 'doctor/pending_detail.html', locals())
+            appointment.isActive = False
+            appointment.save()
+
+            if f'initial_formset_{diag.id}' in request.session:
+                del request.session[f'initial_formset_{diag.id}']
+
+            return redirect('/doctor/pendingDiagnosis')
 
 
 def diagnosis(request):

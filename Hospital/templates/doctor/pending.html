@@ -40,6 +40,7 @@
                                 <th>患者ID</th>
                                 <th>患者姓名</th>
                                 <th>预约时间</th>
+                                <th>预约时段</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -48,6 +49,7 @@
                             <tr>
                                 <td>{{ rec.patient.identity_card_no }}</td>
                                 <td>{{ rec.patient.name }}</td>
+                                <td>{{ rec.appointment_date|date:"Y-m-d" }}</td>
                                 <td>{{ rec.get_appointment_time_display }}</td>
                                 <td>
                                     <form action="" method="post">

@@ -41,17 +41,17 @@
                         <form class=""  method="post">
                             {% csrf_token %}
                             <div class="item m-text">详情：</div>
-                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ detail_form.detail }}
+                            {{ detail_form.detail }}
                             <br>
                             {{ medicine_formset.management_form }}
                             {% for form in medicine_formset %}
-                                {{ form.medicine }}
-                                {{ form.amount }}
+                                药品：{{ form.medicine }}
+                                数量：{{ form.amount }}
                                 <br>
                             {% endfor %}
-
-                            <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" value="add">增加药品</button>
-                            <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" value="submit">提交</button>
+                            <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" name="add">增加药品</button>
+                            <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" name="delete">清空药品</button>
+                            <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" name="submit">提交</button>
                             <a href="/doctor/pendingDiagnosis/" class="ui teal centered button  text-success  m-margin-tb-small" ><ins>返回</ins></a>
                         </form>
 
