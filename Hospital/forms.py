@@ -61,7 +61,7 @@ class DiagnosisDetailForm(forms.Form):
 
 
 class DiagnosisMedicineForm(forms.Form):
-    medicine_choices = [('', '----')]
+    medicine_choices = [('NULL', '----')]
     for medicine in models.Medicine.objects.all():
         medicine_choices.append((medicine, medicine))
     medicine_choices = tuple(medicine_choices)

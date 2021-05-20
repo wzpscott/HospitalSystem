@@ -11,9 +11,9 @@ def entry(request):
 
 
 def register(request):
-    if request.session.get('is_login', None):
-        login_type = request.session['login_type']
-        return redirect(f'/{login_type}/index/')
+    # if request.session.get('is_login', None):
+    #     login_type = request.session['login_type']
+    #     return redirect(f'/{login_type}/index/')
 
     if request.method == 'POST':
         register_form = forms.PatientRegisterForm(request.POST)
@@ -56,9 +56,9 @@ def register(request):
 
 
 def login(request):
-    if request.session.get('is_login', None):
-        login_type = request.session['login_type']
-        return redirect(f'/{login_type}/index/')
+    # if request.session.get('is_login', None):
+    #     login_type = request.session['login_type']
+    #     return redirect(f'/{login_type}/index/')
     if request.method == 'POST':
         login_form = forms.LoginForm(request.POST)
         message = '请检查填写的内容！'
@@ -106,6 +106,12 @@ def info(request):
 def makeAppointment(request):
     records = models.Doctor.objects.all()
     if request.method == 'POST':
+        # 统计已有挂号数，假如超过两个不允许再挂号
+        patient = models.Appointment.objects.get(identity_card_no=request.session['identity_card_no'])
+        num = len(models.Appointment.objects.filter(patient=patient,isActive=True))
+        if num > 2:
+            message = '挂号多于两个'
+
         appointment = models.Appointment()
         appointment.patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
         appointment.doctor = models.Doctor.objects.get(identity_card_no=request.POST.get('appointment_doctor_id'))

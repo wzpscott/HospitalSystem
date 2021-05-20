@@ -37,7 +37,7 @@
                         <div class="item m-text">姓名：{{ patient.name }}</div>
                         <div class="item m-text">身份证号: {{ patient.identity_card_no}}</div>
                         <div class="item m-text">性别: {{ patient.get_gender_display }}</div>
-                        <div class="item m-text">是否有医保:{{ patient.medical_insurance }}</div>
+                        <div class="item m-text">是否有医保:{% if patient.medical_insurance %} 是 {% else %} 否 {% endif %}</div>
                         <div class="item m-text">电话号码:{{ patient.telephone_no }}</div>
                         <div class="item m-text">出生日期:{{ patient.birth_date }}</div>
 

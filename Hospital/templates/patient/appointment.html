@@ -37,8 +37,9 @@
                             <tr>
                                 <th>医生姓名</th>
                                 <th>医生科室</th>
-                                <th>医生职称</th>
                                 <th>预约时间</th>
+                                <th>预约时段</th>
+                                <th>状态</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,12 +47,14 @@
                             <tr>
                                 <td>{{ rec.doctor.name }}</td>
                                 <td>{{ rec.doctor.get_department_display }}</td>
-                                <td>{{ rec.doctor.get_title_display }}</td>
-                                <td>{{ rec.appointment_time }}</td>
+                                <td>{{ rec.appointment_date|date:"Y-m-d" }}</td>
+                                <td>{{ rec.get_appointment_time_display }}</td>
+                                <td>{% if rec.isActive %} 激活 {% else %} 失效 {% endif %}</div></td>
                             </tr>
                             {% endfor %}
 
                         </tbody>
+                </table>
                       <tfoot>
                         <tr><th colspan="4">
                           <div class="ui right floated pagination menu">

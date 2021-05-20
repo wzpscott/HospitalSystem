@@ -6,9 +6,9 @@ from . import forms
 
 
 def register(request):
-    if request.session.get('is_login', None):
-        login_type = request.session['login_type']
-        return redirect(f'/{login_type}/index')
+    # if request.session.get('is_login', None):
+    #     login_type = request.session['login_type']
+    #     return redirect(f'/{login_type}/index')
 
     if request.method == 'POST':
         register_form = forms.DoctorRegisterForm(request.POST)
@@ -50,9 +50,9 @@ def register(request):
 
 
 def login(request):
-    if request.session.get('is_login', None):
-        login_type = request.session['login_type']
-        return redirect(f'/{login_type}/index')
+    # if request.session.get('is_login', None):
+    #     login_type = request.session['login_type']
+    #     return redirect(f'/{login_type}/index')
     if request.method == 'POST':
         login_form = forms.LoginForm(request.POST)
         message = '请检查填写的内容！'
@@ -187,6 +187,8 @@ def pendingDiagnosisDetail(request):
                 data = medicine_formset.cleaned_data
                 initial_formset = []
                 for d in data:
+                    if d.get('medicine') == 'NULL':
+                        continue
                     initial_formset.append(
                         {'medicine': d.get('medicine'),
                          'amount': d.get('amount')}
