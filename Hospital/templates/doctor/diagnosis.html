@@ -10,13 +10,22 @@
 <body>
 
     <!--导航-->
-    <nav class="ui inverted  segment m-padded-tb-large m-shadow-small teal m-opacity-mini">
+    <nav class="ui inverted  segment m-padded-tb-large m-shadow-small m-opacity-mini">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
-                <h1 class="ui header">医院管理系统</h1>
+                <h2 class="ui teal header item">医院管理系统</h2>
+                <a href="/doctor/info/" class="m-item item"><i class="user icon"></i>个人信息</a>
+                <a href="/doctor/diagnosis/" class="active m-item item"><i class="clone icon"></i>诊断记录</a>
+                <a href="/doctor/pendingDiagnosis" class="m-item item"><i class="tags icon"></i>待诊断记录</a>
+                <div class="right m-item item">
+                    <h4 class="ui teal header item">欢迎，{{ doctor.name }}</h4>
+                    <a href="/doctor/logout/" class="text-success "><ins>登出</ins></a>
+                </div>
             </div>
+
         </div>
     </nav>
+
 
     <!--中间内容-->
     <div class="m-container-small m-padded-tb-big">
