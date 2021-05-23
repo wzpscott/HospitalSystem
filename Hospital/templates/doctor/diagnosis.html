@@ -69,11 +69,14 @@
 
                         </tbody>
                       <tfoot>
+                      {% if is_paginated %}
                         <tr><th colspan="4">
                           <div class="ui right floated pagination menu">
-                            <a class="icon item">
+                              {% if page_obj.has_previous %}
+                            <a class="icon item" href="?page={{ page_obj.previous_page_number }}">
                               <i class="left chevron icon"></i>
                             </a>
+                              {% endif %}
                               {% for i in page_range %}
                                 {% if page_obj.number == i %}
                                     <a class="item active">{{ i }}</a>
@@ -83,12 +86,16 @@
                                     <a class="item" href="?page={{ i }}">{{ i }}</a>
                                 {% endif %}
                               {% endfor %}
-                              <a class="icon item">
+                              {% if page_obj.has_next %}
+                              <a class="icon item" href ="?page={{ page_obj.next_page_number }}">
                               <i class="right chevron icon"></i>
-                            </a>
+                              </a>
+                              {% endif %}
                           </div>
                         </th>
-                      </tr></tfoot>
+                      </tr>
+                      {% endif %}
+                      </tfoot>
                     </table>
                 </div>
             </div>

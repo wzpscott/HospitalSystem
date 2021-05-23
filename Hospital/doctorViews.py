@@ -118,14 +118,26 @@ def info_edit_description(request):
 
 
 def pendingDiagnosis(request):
-    identity_card_no = request.session['identity_card_no']
-    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
-    appointment_records = models.Appointment.objects.filter(doctor=doctor, isActive=True)
-    appointment_records = appointment_records.order_by('-appointment_date', '-appointment_time','-create_time')  # 排序
     if request.method == 'POST':
         request.session['appointment_id'] = request.POST.get('appointment')
         return redirect('/doctor/pendingDiagnosis/call')
         # return redirect('/doctor/pendingDiagnosis/detail')
+    identity_card_no = request.session['identity_card_no']
+    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
+    appointment_records = models.Appointment.objects.filter(doctor=doctor, isActive=True)
+    appointment_records = appointment_records.order_by('-appointment_date', '-appointment_time','-create_time')  # 排序
+    num_per_page = 5
+    paginator = Paginator(appointment_records, num_per_page)
+    page = request.GET.get('page', 1)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False
+    page_range = paginator.get_elided_page_range(page, on_each_side=3, on_ends=2)
+
     return render(request, 'doctor/pending.html', locals())
 
 
@@ -238,7 +250,8 @@ def diagnosis(request):
     identity_card_no = request.session['identity_card_no']
     doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
     diagnosis_records = models.Diagnosis.objects.filter(doctor=doctor)
-    paginator = Paginator(diagnosis_records, 2)
+    num_per_page = 5
+    paginator = Paginator(diagnosis_records, num_per_page)
     page = request.GET.get('page', 1)
     try:
         page_obj = paginator.page(page)

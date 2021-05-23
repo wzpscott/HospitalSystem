@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.utils import timezone
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from . import models
 from . import forms
@@ -135,16 +136,38 @@ def appointment(request):
     identity_card_no = request.session['identity_card_no']
     patient = models.Patient.objects.get(identity_card_no=identity_card_no)
     appointments = models.Appointment.objects.filter(patient=patient)
+    num_per_page = 5
+    paginator = Paginator(appointments, num_per_page)
+    page = request.GET.get('page', 1)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False
+    page_range = paginator.get_elided_page_range(page, on_each_side=3, on_ends=2)
     return render(request, 'patient/appointment.html', locals())
 
 
 def diagnosis(request):
-    identity_card_no = request.session['identity_card_no']
-    patient = models.Patient.objects.get(identity_card_no=identity_card_no)
-    diagnosis_records = models.Diagnosis.objects.filter(patient=patient)
     if request.method == 'POST':
         request.session['diagnosis'] = request.POST.get('diagnosis')
         return redirect('/patient/diagnosis/detail')
+    identity_card_no = request.session['identity_card_no']
+    patient = models.Patient.objects.get(identity_card_no=identity_card_no)
+    diagnosis_records = models.Diagnosis.objects.filter(patient=patient)
+    num_per_page = 5
+    paginator = Paginator(diagnosis_records, num_per_page)
+    page = request.GET.get('page', 1)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False
+    page_range = paginator.get_elided_page_range(page, on_each_side=3, on_ends=2)
     return render(request, 'patient/diagnosis.html', locals())
 
 
