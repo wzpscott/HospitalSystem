@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.forms import formset_factory
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from . import models
 from . import forms
 
@@ -230,12 +232,22 @@ def pendingDiagnosisDetail(request):
 
 
 def diagnosis(request):
-    identity_card_no = request.session['identity_card_no']
-    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
-    diagnosis_records = models.Diagnosis.objects.filter(doctor=doctor)
     if request.method == 'POST':
         request.session['diagnosis'] = request.POST.get('diagnosis')
         return redirect('/doctor/diagnosis/detail')
+    identity_card_no = request.session['identity_card_no']
+    doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
+    diagnosis_records = models.Diagnosis.objects.filter(doctor=doctor)
+    paginator = Paginator(diagnosis_records, 2)
+    page = request.GET.get('page', 1)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False
+    page_range = paginator.get_elided_page_range(page, on_each_side=3, on_ends=2)
     return render(request, 'doctor/diagnosis.html', locals())
 
 
