@@ -105,9 +105,9 @@ def info(request):
 
 def makeAppointment(request):
     records = models.Doctor.objects.all()
+    patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
     if request.method == 'POST':
         # 统计已有挂号数，假如超过两个不允许再挂号
-        patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
         num = len(models.Appointment.objects.filter(patient=patient, isActive=True))
         # 待修改
         if num > 100:
