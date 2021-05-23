@@ -44,6 +44,9 @@
                                 <th></th>
                             </tr>
                         </thead>
+                    {% if message %}
+                        {{ message }}
+                    {% endif %}
                         <tbody>
                             {% for rec in records%}
                             <tr>

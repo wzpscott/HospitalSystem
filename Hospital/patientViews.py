@@ -107,10 +107,12 @@ def makeAppointment(request):
     records = models.Doctor.objects.all()
     if request.method == 'POST':
         # 统计已有挂号数，假如超过两个不允许再挂号
-        patient = models.Appointment.objects.get(identity_card_no=request.session['identity_card_no'])
-        num = len(models.Appointment.objects.filter(patient=patient,isActive=True))
-        if num > 2:
+        patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
+        num = len(models.Appointment.objects.filter(patient=patient, isActive=True))
+        # 待修改
+        if num > 100:
             message = '挂号多于两个'
+            return render(request, 'patient/makeAppointment.html', locals())
 
         appointment = models.Appointment()
         appointment.patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
