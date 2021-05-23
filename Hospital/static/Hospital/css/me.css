@@ -140,7 +140,9 @@
 }
 
 /*--position--*/
-
+.m-right {
+    right: 1em !important;
+}
 .m-right-top {
     position: absolute;
     top: 0;

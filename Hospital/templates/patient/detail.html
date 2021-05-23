@@ -10,13 +10,23 @@
 <body>
 
     <!--导航-->
-    <nav class="ui inverted  segment m-padded-tb-large m-shadow-small teal m-opacity-mini">
+   <nav class="ui inverted  segment m-padded-tb-large m-shadow-small m-opacity-mini">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
-                <h1 class="ui header">医院管理系统</h1>
+                <h2 class="ui teal header item">医院管理系统</h2>
+                <a href="/patient/info" class="m-item item"><i class="user icon"></i>个人信息</a>
+                <a href="/patient/makeAppointment" class="m-item item"><i class="plus icon"></i>预约挂号</a>
+                <a href="/patient/appointment" class="m-item item"><i class="tags icon"></i>挂号记录</a>
+                <a href="/patient/diagnosis" class="active m-item item"><i class="clone icon"></i>就诊记录</a>
+                <div class="right m-item item">
+                    <h4 class="ui teal header item">欢迎，{{ patient.name }}</h4>
+                    <a href="/patient/logout/" class="text-success "><ins>登出</ins></a>
+                </div>
             </div>
+
         </div>
     </nav>
+
 
     <!--中间内容-->
     <div class="m-container-small m-padded-tb-big">
@@ -27,7 +37,9 @@
                     <div class="column">
                         <h3 class="ui teal header">诊断详情</h3>
                     </div>
-
+                    <div class="basic right aligned column">
+                        <a href="/patient/diagnosis/" class="ui teal tiny centered button">返回</a>
+                    </div>
                 </div>
             </div>
 
@@ -47,7 +59,7 @@
 
                             {% endfor %}
                         </div>
-                        <a href="/patient/diagnosis/"><button class="ui teal mini centered button">返回</button></a>
+
 
 
 
