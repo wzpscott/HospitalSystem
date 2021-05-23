@@ -77,7 +77,7 @@ def login(request):
             request.session['is_login'] = True
             request.session['login_type'] = 'patient'
             request.session['identity_card_no'] = identity_card_no
-            return redirect('/patient/index/')
+            return redirect('/patient/info/')
         else:
             return render(request, 'patient/login.html', locals())
 
@@ -94,7 +94,7 @@ def logout(request):
 
 
 def index(request):
-    return render(request, 'patient/index.html', locals())
+    return render(request, 'patient/index_old.html', locals())
 
 
 def info(request):

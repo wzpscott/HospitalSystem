@@ -62,7 +62,7 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)  # 医生
     create_time = models.DateTimeField(auto_now_add=True)  # 创建时间
     appointment_date = models.DateTimeField()  # 预约日期
-    appointment_time = models.CharField(max_length=10, choices=time_choices) # 预约时间（上下午）
+    appointment_time = models.CharField(max_length=10, choices=time_choices)  # 预约时间（上下午）
     isActive = models.BooleanField(default=True)  # 是否有效
 
     def __str__(self):

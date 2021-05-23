@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width = device-width, initial-scale=1.0">
+    <title>叫号</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/Hospital/css/me.css">
+</head>
+
+<body>
+<div class="m-container-small m-padded-tb-big">
+    <div class="container">
+        <!--头部-->
+        <div class="ui top attached rounded padded segment">
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <h3 class="ui teal header">请与患者核对基本信息</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ui attached segment">
+        <div class="ui segment m-width-middle">
+            <div class="ui list m-padded-lr">
+                <div class="item m-text">姓名：{{ patient.name }}</div>
+                <div class="item m-text">身份证号: {{ patient.identity_card_no}}</div>
+                <div class="item m-text">性别: {{ patient.get_gender_display }}</div>
+                <div class="item m-text">是否有医保:{% if patient.medical_insurance %} 是 {% else %} 否 {% endif %}</div>
+                <div class="item m-text">电话号码:{{ patient.telephone_no }}</div>
+                <div class="item m-text">出生日期:{{ patient.birth_date }}</div>
+            </div>
+        </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" name="diagnosis">去诊断</button>
+        <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" name="delete">删除</button>
+        <button type="submit" class="ui teal centered button btn btn-primary float-right m-margin-tb-small" name="return">返回</button>
+    </form>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+</body>
+</html>

@@ -72,7 +72,7 @@ def login(request):
             request.session['is_login'] = True
             request.session['login_type'] = 'doctor'
             request.session['identity_card_no'] = identity_card_no
-            return redirect('/doctor/index')
+            return redirect('/doctor/info')
         else:
             return render(request, 'doctor/login.html', locals())
 
@@ -89,7 +89,7 @@ def logout(request):
 
 
 def index(request):
-    return render(request, 'doctor/index.html', locals())
+    return render(request, 'doctor/index_old.html', locals())
 
 
 def info(request):
@@ -119,11 +119,28 @@ def pendingDiagnosis(request):
     identity_card_no = request.session['identity_card_no']
     doctor = models.Doctor.objects.get(identity_card_no=identity_card_no)
     appointment_records = models.Appointment.objects.filter(doctor=doctor, isActive=True)
-    appointment_records = appointment_records.order_by('-appointment_date', '-appointment_time')  # 逆序排序
+    appointment_records = appointment_records.order_by('-appointment_date', '-appointment_time','-create_time')  # 排序
     if request.method == 'POST':
         request.session['appointment_id'] = request.POST.get('appointment')
-        return redirect('/doctor/pendingDiagnosis/detail')
+        return redirect('/doctor/pendingDiagnosis/call')
+        # return redirect('/doctor/pendingDiagnosis/detail')
     return render(request, 'doctor/pending.html', locals())
+
+
+def pendingDiagnosisCall(request):
+    appointment_id = request.session['appointment_id']
+    appointment = models.Appointment.objects.get(id=appointment_id)
+    patient = appointment.patient
+    if request.method == 'POST':
+        if 'diagnosis' in request.POST:
+            return redirect('/doctor/pendingDiagnosis/detail')
+        if 'delete' in request.POST:
+            appointment.isActive = False
+            appointment.save()
+            return redirect('/doctor/pendingDiagnosis/')
+        if 'return' in request.POST:
+            return redirect('/doctor/pendingDiagnosis/')
+    return render(request, 'doctor/pendingCall.html', locals())
 
 
 def pendingDiagnosisDetail(request):

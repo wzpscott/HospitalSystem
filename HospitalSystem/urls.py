@@ -30,6 +30,7 @@ urlpatterns = [
     path('doctor/index', doctorViews.index),
     path('doctor/pendingDiagnosis/', doctorViews.pendingDiagnosis),
     path('doctor/pendingDiagnosis/detail', doctorViews.pendingDiagnosisDetail),
+    path('doctor/pendingDiagnosis/call', doctorViews.pendingDiagnosisCall),
     path('doctor/diagnosis/', doctorViews.diagnosis),
     path('doctor/diagnosis/detail', doctorViews.diagnosisDetail),
     path('doctor/info/', doctorViews.info),
