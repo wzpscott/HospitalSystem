@@ -20,7 +20,7 @@ a {
 }
 
 
-/* 给精品推荐模块去浮动 */
+/* 去浮动 */
 
 .clearfix：before,
 .clearfix::after {
@@ -52,102 +52,64 @@ body {
     margin: auto;
 }
 
-
-/* 头部区域 */
-
-.header {
-    height: 116px;
-    margin: 15px auto;
+/* start区域 */
+.ui img {
+    margin-top:-10px;
+    margin-bottom:-10px;
 }
 
-.logo {
-    float: left;
-    width: 400px;
-    height: 80px;
-    margin: 16px 0 16px 0;
-}
-
-
-/* search搜索模块 */
-
-.search {
-    float: left;
-    width: 412px;
-    height: 42px;
-    margin-left: 350px;
-    margin-top: 35px;
-}
-
-.search .search_text {
-    float: left;
-    width: 345px;
-    height: 40px;
-    border: 1px solid #3ab7fd;
-    border-right: 0;
-    font-size: 14px;
-    padding-left: 15px;
-    /* "\5B8B\4F53" 就是宋体的意思 这样浏览器兼容性比较好 */
-    font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
-    outline: none;
-}
-
-.search .search_button {
-    float: left;
-    width: 50px;
-    height: 42px;
-    /* 手动去掉背景边框 */
-    border: 0;
-    /* 添加背景图background:url（图片路径） */
-    background: skyblue;
-    cursor: pointer
+.ui .ent{
+    font-size:30px;
+    margin-top:10px;
+    color:#00B5AD;
 }
 
 
 /* banner区域 */
 
 .banner {
-    height: 120px;
+    margin-top:50px;
+    height: 100px;
     text-align: center;
 }
 
 .banner p {
     display: inline-block;
-    font-size: 60px;
-    font-family: 微软雅黑;
-    color: blue;
+    font-size: 50px;
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+    font-weight:600;
+    color: #00B5AD;
 }
 
 
 /* 入口选择区域 */
 
 .box {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 
-/* 把ul修改的足够宽，就不存在换行的问题了 */
 
 .box ul {
-    /* 此处通过计算得出 */
     width: 1225px;
 }
 
 .box ul li {
     float: left;
-    /* 盒子的实际宽度要减去左右外边距的宽度 */
     width: 228px;
     height: 270px;
     margin-right: 50px;
-    background-color: skyblue;
+    border-radius: .28571429rem;
+    border:solid 1px #D4D4D5;
 }
 
 .box ul li h3 {
     margin: 20px 20px 10px 25px;
-    font-size: 30px;
-    color: #ffffff;
+    padding-bottom:10px;
+    font-size: 26px;
+    color: #00B5AD;
     text-align: center;
-    font-weight: bold;
-    border-bottom: solid 1px #b0d9fb;
+    border-bottom: solid 1px #D4D4D5;
 }
 
 .box ul .pass1 {
@@ -155,11 +117,12 @@ body {
 }
 
 .box .info {
-    font-size: 18px;
+    font-size: 17px;
     line-height: 30px;
-    color: #ffffff;
+    color: #00B5AD;
     text-align: justify;
     padding: 0 24px;
+    margin-top:20px;
 }
 
 
