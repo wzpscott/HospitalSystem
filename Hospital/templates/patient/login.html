@@ -16,9 +16,9 @@
             {% csrf_token %}
             <ul>
                 <li><p style="font-style: red; color: red;">{{ message }}</p></li>
-                <li><label for="">身份证号：</label>{{ login_form.identity_card_no }}</li>
-                <li><label for="">密码：</label>{{ login_form.password }}</li>
-                <li>
+                <li class="iput"><label for="">身份证号：</label>{{ login_form.identity_card_no }}</li>
+                <li class="iput"><label for="">密码：</label>{{ login_form.password }}</li>
+                <li class="iput">
                     <div class="verify">
                         <div id="verify_box">
                             <div id="verify_xbox">
@@ -26,7 +26,7 @@
                                     <img class="img" src="{% static 'Hospital/img/slide.png' %}" />
                                 </div>
                             </div>
-                            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;按住滑块，拖动到最右边
+                            &nbsp; &nbsp; &nbsp;按住滑块，拖动到最右边
                         </div>
 
                     </div>
@@ -36,8 +36,7 @@
             <button class="btn1" type="submit" style="border-style: none; outline: none; background-color: transparent;">立即登录</button>
 
         </form>
-
-        <div style="position:absolute;margin-left: 210px;margin-top: 50px;">
+        <div style="position:absolute;margin-left: 220px;margin-top: 12px;">
             <h6 style="text-align: center;">没有账号？<a href="/patient/register">注册</a></h6>
         </div>
         <div id="mask">注册成功</div>
@@ -46,10 +45,6 @@
         <script type="text/javascript" src="{% static 'Hospital/js/login.js' %}"></script>
     </div>
 
-    <div class="footer w">
-        <p>—————— &nbsp End &nbsp ——————</p><br />
-        <p>2021 © 北航校医院</p>
-    </div>
 </body>
 
 </html>

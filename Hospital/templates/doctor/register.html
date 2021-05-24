@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户注册</title>
-    <link rel="stylesheet" href="{% static 'Hospital/css/style.css' %}">
+    <title>医生注册</title>
+    <link rel="stylesheet" href="../../static/Hospital/css/style.css">
 </head>
 
 <body>
@@ -26,13 +26,13 @@
                 </li>
                 <li><label for="">性别：</label><input class="gender" type="radio" checked="checked" name="gender" value="male" />男&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <input class="gender" type="radio" name="gender" value="female">女</li>
-                <li><label for="">科室：</label>{{ register_form.department }}</li>
-                <li><label for="">职称：</label>{{ register_form.title }}</li>
+                <li><label for="" >科室：</label>{{ register_form.department }}</li>
+                <li><label for="" >职称：</label>{{ register_form.title }}</li>
                 <li><label for="">个人简介：</label>{{ register_form.description }}</li>
             </ul>
-            <button class="btn1" type="submit" style="border-style: none; outline: none; background-color: transparent;">立即注册</button>
+            <button class="btn1 btn_1" type="submit" style="border-style: none; outline: none; background-color: transparent;">立即注册</button>
         </form>
-        <div style="position:absolute;margin-left: 210px;margin-top: 80px;">
+        <div style="position:absolute;margin-left: 210px;margin-top: 55px;">
             <h6 style="text-align: center;">已有账号？<a href="doctor/login">登陆</a></h6>
         </div>
         <div id="mask">注册成功</div>
@@ -41,10 +41,6 @@
         <script src="{% static 'Hospital/js/register_doctor.js' %}"></script>
     </div>
 
-    <div class="footer w">
-        <p>—————— &nbsp End &nbsp ——————</p><br />
-        <p>2021 © 北航校医院</p>
-    </div>
 </body>
 
 </html>

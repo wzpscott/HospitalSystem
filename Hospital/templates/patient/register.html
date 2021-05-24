@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户注册</title>
-    <link rel="stylesheet" href="{% static 'Hospital/css/style.css' %}">
+    <link rel="stylesheet" href="../../static/Hospital/css/style.css">
 </head>
 
 <body>
-    <div class="register">
+    <div class="register register2">
         <h1>Register</h1>
         <form action="/patient/register/" autocomplete="off" method="post">
             {% csrf_token %}
@@ -27,7 +27,7 @@
                 <li><label for="">身份证号：</label>{{ register_form.identity_card_no }}<br>
                     <p>请填写正确的身份证号</p>
                 </li>
-                <li><label for="">性别：</label><input class="gender" type="radio" checked="checked" name="gender" value="male" />男&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <li><label for="" >性别：</label><input class="gender" type="radio" checked="checked" name="gender" value="male" />男&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <input class="gender" type="radio" name="gender" value="female">女</li>
                 <li><label for="">医保：</label><input class="insurance" type="radio" checked="checked" name="medical_insurance" value="True" />有&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <input class="insurance" type="radio" name="medical_insurance" value="False">无</li>
@@ -35,20 +35,15 @@
                     <label for="">出生日期：</label>{{ register_form.birth_date }}
                 </li>
             </ul>
-            <button class="btn1" type="submit" style="border-style: none; outline: none; background-color: transparent;">立即注册</button>
+            <button class="btn1 btn_1" type="submit" style="border-style: none; outline: none; background-color: transparent;">立即注册</button>
         </form>
-        <div style="position:absolute;margin-left: 210px;margin-top: 80px;">
-            <h6 style="text-align: center;">已有账号？<a href="patient/login">登陆</a></h6>
+        <div style="position:absolute;margin-left: 210px;margin-top:55px;">
+            <h6 style="text-align: center;">已有账号？<a href="patient/login.html">登陆</a></h6>
         </div>
         <div id="mask">注册成功</div>
         <div class="load"></div>
         <script type="text/javascript" src="{% static 'Hospital/js/slide.js' %}"></script>
         <script src="{% static 'Hospital/js/register_patient.js' %}"></script>
-    </div>
-
-    <div class="footer w">
-        <p>—————— &nbsp End &nbsp ——————</p><br />
-        <p>2021 © 北航校医院</p>
     </div>
 </body>
 
