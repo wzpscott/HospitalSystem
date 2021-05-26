@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ch">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale=1.0">
     <title>预约挂号</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/Hospital/css/me.css">
+    <link rel="stylesheet" href="{% static 'Hospital/css/entry.css' %}">
 </head>
 <body>
 
@@ -13,7 +15,8 @@
     <nav class="ui inverted  segment m-padded-tb-large m-shadow-small m-opacity-mini">
         <div class="ui container">
             <div class="ui inverted secondary stackable menu">
-                <h2 class="ui teal header item">医院管理系统</h2>
+                <img src="../../static/Hospital/img/logo.svg" height="80" width="80"/>
+                <h2 class="ent">医院管理系统</h2>
                 <a href="/patient/info" class="m-item item"><i class="user icon"></i>个人信息</a>
                 <a href="/patient/makeAppointment" class="active m-item item"><i class="plus icon"></i>预约挂号</a>
                 <a href="/patient/appointment" class="m-item item"><i class="tags icon"></i>挂号记录</a>
