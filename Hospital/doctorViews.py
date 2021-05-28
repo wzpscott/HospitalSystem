@@ -236,11 +236,41 @@ def pendingDiagnosisDetail(request):
 
             appointment.isActive = False
             appointment.save()
-
+            bill = models.Bill()
+            bill.diagnosis = diag
+            bill.price = generate_bill(diag)['总计']
+            bill.save()
             if f'initial_formset_{diag.id}' in request.session:
                 del request.session[f'initial_formset_{diag.id}']
 
             return redirect('/doctor/pendingDiagnosis')
+
+
+def generate_bill(diag):
+    doctor_level = diag.doctor.title
+    medicines = models.MedicineRequest.objects.filter(diagnosis=diag)
+    medicines = [(med.medicine, med.amount) for med in medicines]
+    doctor_cost_dict = {
+        'director physician': 200,
+        'assistant director physician': 100,
+        'physician': 50
+    }
+    medicine_bill = {}
+    for med, amt in medicines:
+        medicine_bill[med.id] = {}
+        medicine_bill[med.id]['name'] = med.name
+        medicine_bill[med.id]['amount'] = amt
+        medicine_bill[med.id]['price'] = float(med.price)
+        medicine_bill[med.id]['unit'] = med.get_unit_display
+        medicine_bill[med.id]['total'] = amt*float(med.price)
+    total = 50+doctor_cost_dict[doctor_level]+sum([medicine_bill[med]['total'] for med in medicine_bill])
+    bill = {
+        '挂号费': 50,
+        '诊断费用': doctor_cost_dict[doctor_level],
+        '药费': medicine_bill,
+        '总计': total,
+    }
+    return bill
 
 
 def diagnosis(request):

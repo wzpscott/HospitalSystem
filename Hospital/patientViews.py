@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from . import models
 from . import forms
 
+from .doctorViews import generate_bill
 
 def entry(request):
     pass
@@ -105,7 +106,7 @@ def info(request):
 
 
 def makeAppointment(request):
-    records = models.Doctor.objects.all()
+    records = models.Doctor.objects.filter(is_inspector=False)
     patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
     if request.method == 'POST':
         # 统计已有挂号数，假如超过两个不允许再挂号
@@ -178,10 +179,36 @@ def diagnosisDetail(request):
 
 
 def bill(request):
-    pass
+    if request.method == 'POST':
+        request.session['bill'] = request.POST.get('bill')
+        return redirect('/patient/bill/detail')
+    identity_card_no = request.session['identity_card_no']
+    patient = models.Patient.objects.get(identity_card_no=identity_card_no)
+    bills = models.Bill.objects.filter(diagnosis__in=models.Diagnosis.objects.filter(patient=patient))
+
+    num_per_page = 5
+    paginator = Paginator(bills, num_per_page)
+    page = request.GET.get('page', 1)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False
+    page_range = paginator.get_elided_page_range(page, on_each_side=3, on_ends=2)
+    return render(request, 'patient/bill.html', locals())
 
 
 def billDetail(request):
-    pass
+    bill = models.Bill.objects.get(id=request.session['bill'])
+    diag = bill.diagnosis
+    bill_detail = generate_bill(diag)
+    if request.method == 'POST':
+        bill.is_active = False
+        bill.save()
+        message = '缴费成功'
+        return render(request, 'patient/billDetail.html', locals())
+    return render(request, 'patient/billDetail.html', locals())
 
 

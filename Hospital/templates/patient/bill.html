@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale=1.0">
-    <title>就诊记录</title>
+    <title>挂号记录</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/Hospital/css/me.css">
 </head>
@@ -17,8 +17,8 @@
                 <a href="/patient/info" class="m-item item"><i class="user icon"></i>个人信息</a>
                 <a href="/patient/makeAppointment" class="m-item item"><i class="plus icon"></i>预约挂号</a>
                 <a href="/patient/appointment" class="m-item item"><i class="tags icon"></i>挂号记录</a>
-                <a href="/patient/diagnosis" class="active m-item item"><i class="clone icon"></i>就诊记录</a>
-                <a href="/patient/bill" class="m-item item"><i class="clone icon"></i>我的账单</a>
+                <a href="/patient/diagnosis" class="m-item item"><i class="clone icon"></i>就诊记录</a>
+                <a href="/patient/bill" class="active m-item item"><i class="clone icon"></i>我的账单</a>
                 <div class="right m-item item">
                     <h4 class="ui teal header item">欢迎，{{ patient.name }}</h4>
                     <a href="/patient/logout/" class="text-success "><ins>登出</ins></a>
@@ -29,7 +29,6 @@
     </nav>
 
 
-
     <!--中间内容-->
     <div class="m-container-small m-padded-tb-big">
         <div class="container">
@@ -37,42 +36,41 @@
             <div class="ui top attached rounded padded segment">
                 <div class="ui middle aligned two column grid">
                     <div class="column">
-                        <h3 class="ui teal header">就诊记录</h3>
-                    </div>
-                    <div class="basic right aligned column">
-                        <a href="/patient/info/" class="ui teal tiny centered button">返回</a>
+                        <h3 class="ui teal header">账单</h3>
                     </div>
                 </div>
             </div>
 
             <div class="ui attached segment">
-                <div class="ui segment m-width-middle">
+                <div class="ui segment ">
                     <table class="ui celled table">
                         <thead>
                             <tr>
-                                <th>医生姓名</th>
-                                <th>诊断时间</th>
+                                <th>账单编号</th>
+                                <th>创建时间</th>
+                                <th>总价格</th>
+                                <th>状态</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for rec in page_obj%}
+                            {% for bill in page_obj%}
                             <tr>
-                                <td>{{ rec.doctor.name }}</td>
-                                <td>{{ rec.create_time }}</td>
+                                <td>{{ bill.id }}</td>
+                                <td>{{ bill.create_time|date:"Y-m-d" }}</td>
+                                <td>{{ bill.price }}</td>
+                                <td>{% if bill.is_active %} 激活 {% else %} 失效 {% endif %}</div></td>
                                 <td><form action="" method="post">
                                     {% csrf_token %}
-                                    <input type="hidden" name="diagnosis" value={{ rec.id }}>
+                                    <input type="hidden" name="bill" value={{ bill.id }}>
                                     <button class="ui teal centered button">诊断详情</button>
                                     </form>
                                     </td>
                             </tr>
                             {% endfor %}
-
-
-                        </tbody>
+                            </tbody>
                       <tfoot>
-                                                {% if is_paginated %}
+                        {% if is_paginated %}
                         <tr><th colspan="5">
                           <div class="ui right floated pagination menu">
                               {% if page_obj.has_previous %}
@@ -100,6 +98,7 @@
                       {% endif %}
                       </tfoot>
                     </table>
+
                 </div>
 
             </div>

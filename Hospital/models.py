@@ -31,7 +31,11 @@ class Doctor(models.Model):
         ('Department of Obstetrics and Gynecology', '妇产科'),
         ('Department of Traditional Chinese Medicine', '中医科'),
         ('Department of Dermatology', '皮肤科'),
-        ('Department of Oral Medicine', '口腔科')
+        ('Department of Oral Medicine', '口腔科'),
+        ('Laboratory', '化验室'),
+        ('X-ray Room', 'X光室'),
+        ('Cystoscopy Room', '膀胱镜室'),
+        ('Gastroscope Room', '胃镜室'),
     )
     title_choices = (
         ('director physician', '主任医师'),
@@ -43,6 +47,7 @@ class Doctor(models.Model):
     gender = models.CharField(max_length=32, choices=gender_choices)  # 性别
     identity_card_no = models.CharField(max_length=32, unique=True)  # 身份证号
 
+    is_inspector = models.BooleanField(default=False)  # 是否为检查人员
     department = models.CharField(max_length=64, choices=department_choices)  # 科室
     title = models.CharField(max_length=64, choices=title_choices)  # 职称
     description = models.TextField(max_length=500, default='暂无简介')  # 简介
@@ -55,8 +60,8 @@ class Doctor(models.Model):
 
 class Appointment(models.Model):
     time_choices = (
-        ('Morning','上午'),
-        ('Afternoon','下午')
+        ('Morning', '上午'),
+        ('Afternoon', '下午')
     )
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE) # 患者
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)  # 医生
@@ -116,6 +121,8 @@ class MedicineRequest(models.Model):
 class Bill(models.Model):
     diagnosis = models.ForeignKey(Diagnosis, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=7, decimal_places=2)
+    is_active = models.BooleanField(default=True)
+    create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.diagnosis.id.__str__()+'账单'

@@ -44,7 +44,9 @@ urlpatterns = [
     path('patient/diagnosis/detail', patientViews.diagnosisDetail),
     path('patient/makeAppointment', patientViews.makeAppointment),
     path('patient/makeAppointment/detail', patientViews.appointmentDetail),
-    path('patient/appointment', patientViews.appointment)
+    path('patient/appointment', patientViews.appointment),
+    path('patient/bill', patientViews.bill),
+    path('patient/bill/detail', patientViews.billDetail),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
