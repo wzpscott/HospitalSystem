@@ -124,7 +124,20 @@ def makeAppointment(request):
         appointment.isActive = True
         appointment.save()
         request.session['appointment_id'] = appointment.id
+
         return redirect('/patient/makeAppointment/detail')
+
+    num_per_page = 5
+    paginator = Paginator(records, num_per_page)
+    page = request.GET.get('page', 1)
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False
+    page_range = paginator.get_elided_page_range(page, on_each_side=3, on_ends=2)
     return render(request, 'patient/makeAppointment.html', locals())
 
 
