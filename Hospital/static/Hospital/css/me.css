@@ -35,6 +35,10 @@
     padding-top: 1.3em !important;
     padding-bottom: 1.3em !important;
 }
+.m-padded-tb-large-big {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
 .m-padded-tb-big{
     padding-top: 3em !important;
     padding-bottom: 3em !important;
@@ -55,6 +59,7 @@
     padding-left: 1em !important;
     padding-right: 1em !important;
 }
+
 /*字体*/
 /*--text--*/
 .m-text {

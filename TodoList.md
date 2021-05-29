@@ -1,8 +1,8 @@
 5.23 
 * 首页改成跳转 &radic;
-* 左上角加logo
-* 主页和登录页改一下风格
-* 更新后页面需要调格式
+* 左上角加logo &radic;
+* 主页和登录页改一下风格 &radic;
+* 更新后页面需要调格式 &radic;
   http://127.0.0.1:8000/doctor/pendingDiagnosis/call
   http://127.0.0.1:8000/patient/makeAppointment/detail
 * 加入结算功能

@@ -44,8 +44,9 @@
             </div>
 
             <div class="ui attached segment">
-                <div class="ui segment m-width-middle">
-                    <div class="ui list m-padded-lr">
+                <div class="ui segment m-width-middle grid">
+                    <div class="ui  eleven wide column">
+                        <div class="ui list m-padded-lr">
                         <div class="item m-text">姓名：{{ doctor.name }}</div>
                         <div class="item m-text">身份证号: {{ doctor.identity_card_no}}</div>
                         <div class="item m-text">部门: {{ doctor.get_department_display }}</div>
@@ -67,9 +68,14 @@
 
 
                     </div>
-                </div>
+                    </div>
+                    <div class="ui five wide column">
+                        <div class="m-padded-small">
+                            <img src="../../static/Hospital/img/doctor.jpeg" height="160" width="120" />
+                        </div>
                     </div>
                 </div>
+            </div>
 
 
     </div>
