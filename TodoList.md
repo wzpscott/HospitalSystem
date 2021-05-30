@@ -6,11 +6,11 @@
   http://127.0.0.1:8000/doctor/pendingDiagnosis/call
   http://127.0.0.1:8000/patient/makeAppointment/detail
 * 加入结算功能
-* 加人像图片
+* 加人像图片 &radic;
 * 加入药品库管理人员
 * 加入检查人员
 * 预约挂号查看医生信息
-
+* Hospital/templates/patient/makeAppointment.html页面
 
 
 
