@@ -50,11 +50,11 @@
                     <div class="ui selection dropdown" >
                         <input type="hidden" name="keshi">
                         <i class="dropdown icon"></i>
-                        <div class="default text">科室</div>
+                        <div class="default text">{{ depart }}</div>
                         <div class="menu">
                             <!--选择后页面重新加载-->
-                            {% for rec in page_obj%}
-                            <div class="item" data-value="0">{{ rec.get_department_display }}</div>
+                            {% for depart in departs_%}
+                            <div class="item" data-value="0"><a href="?depart={{ depart }}"><div class="item" data-value="0">{{ depart }}</div></a></div>
                             {% endfor %}
                         </div>
                     </div>

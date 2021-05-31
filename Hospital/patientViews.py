@@ -106,10 +106,9 @@ def info(request):
 
 
 def makeAppointment(request):
-    records = models.Doctor.objects.filter(is_inspector=False)
-    patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
     if request.method == 'POST':
         # 统计已有挂号数，假如超过两个不允许再挂号
+        patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
         num = len(models.Appointment.objects.filter(patient=patient, isActive=True))
         # 待修改
         if num > 100:
@@ -127,6 +126,12 @@ def makeAppointment(request):
 
         return redirect('/patient/makeAppointment/detail')
 
+    departs = [depart[0] for depart in models.Doctor.department_choices]
+    departs_ = [depart[1] for depart in models.Doctor.department_choices]
+    depart = request.GET.get('depart', departs_[0] if 'depart' not in request.session else request.session['depart'])
+    request.session['depart'] = depart
+    print('科室', depart, departs_.index(depart))
+    records = models.Doctor.objects.filter(department=departs[departs_.index(depart)])
     num_per_page = 5
     paginator = Paginator(records, num_per_page)
     page = request.GET.get('page', 1)
