@@ -62,7 +62,7 @@
                                 <td>{{ bill.id }}</td>
                                 <td>{{ bill.create_time|date:"Y-m-d" }}</td>
                                 <td>{{ bill.price }}</td>
-                                <td>{% if bill.is_active %} 激活 {% else %} 失效 {% endif %}</div></td>
+                                <td>{% if bill.is_active %} 未付款 {% else %} 已付款 {% endif %}</div></td>
                                 <td><form action="" method="post">
                                     {% csrf_token %}
                                     <input type="hidden" name="bill" value={{ bill.id }}>

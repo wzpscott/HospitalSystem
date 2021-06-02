@@ -92,7 +92,7 @@ def logout(request):
         request.session['is_login'] = False
         request.session['login_type'] = None
         request.session['ID'] = None
-        return redirect('/Hospital/')
+    return redirect('/Hospital/')
 
 
 def index(request):
@@ -106,6 +106,7 @@ def info(request):
 
 
 def makeAppointment(request):
+    patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
     if request.method == 'POST':
         # 统计已有挂号数，假如超过两个不允许再挂号
         patient = models.Patient.objects.get(identity_card_no=request.session['identity_card_no'])
@@ -120,6 +121,7 @@ def makeAppointment(request):
         appointment.doctor = models.Doctor.objects.get(identity_card_no=request.POST.get('appointment_doctor_id'))
         appointment.appointment_time = request.POST.get('appointment_time')
         appointment.appointment_date = request.POST.get('appointment_date')
+
         appointment.isActive = True
         appointment.save()
         request.session['appointment_id'] = appointment.id
@@ -130,7 +132,7 @@ def makeAppointment(request):
     departs_ = [depart[1] for depart in models.Doctor.department_choices]
     depart = request.GET.get('depart', departs_[0] if 'depart' not in request.session else request.session['depart'])
     request.session['depart'] = depart
-    print('科室', depart, departs_.index(depart))
+    # print('科室', depart, departs_.index(depart))
     records = models.Doctor.objects.filter(department=departs[departs_.index(depart)])
     num_per_page = 5
     paginator = Paginator(records, num_per_page)

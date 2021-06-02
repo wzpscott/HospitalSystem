@@ -32,10 +32,6 @@ class Doctor(models.Model):
         ('Department of Traditional Chinese Medicine', '中医科'),
         ('Department of Dermatology', '皮肤科'),
         ('Department of Oral Medicine', '口腔科'),
-        ('Laboratory', '化验室'),
-        ('X-ray Room', 'X光室'),
-        ('Cystoscopy Room', '膀胱镜室'),
-        ('Gastroscope Room', '胃镜室'),
     )
     title_choices = (
         ('director physician', '主任医师'),
@@ -47,7 +43,6 @@ class Doctor(models.Model):
     gender = models.CharField(max_length=32, choices=gender_choices)  # 性别
     identity_card_no = models.CharField(max_length=32, unique=True)  # 身份证号
 
-    is_inspector = models.BooleanField(default=False)  # 是否为检查人员
     department = models.CharField(max_length=64, choices=department_choices)  # 科室
     title = models.CharField(max_length=64, choices=title_choices)  # 职称
     description = models.TextField(max_length=500, default='暂无简介')  # 简介

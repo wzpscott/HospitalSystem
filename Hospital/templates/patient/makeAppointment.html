@@ -76,7 +76,7 @@
                             <tr>
                                 <!--传入医生信息 data-content属性 -->
                                 <td>
-                                    <a href="#" class="doctorname button" data-content="这里放医生信息" data-position="bottom center">
+                                    <a href="#" class="doctorname button" data-content={{ rec.description }}>
                                         {{ rec.name }}
                                     </a>
                                 </td>
@@ -85,7 +85,7 @@
                                 <td>{{ rec.get_title_display }}</td>
                                 <td><form action="" method="post">
                                 {% csrf_token %}
-                                <input type="date" name="appointment_date">
+                                <input type="date" name="appointment_date" required>
 
                                     <select name="appointment_time" >
                                     <option value="Morning">上午</option>
