@@ -223,6 +223,7 @@ def bill(request):
 def billDetail(request):
     bill = models.Bill.objects.get(id=request.session['bill'])
     diag = bill.diagnosis
+    patient = diag.patient
     bill_detail = generate_bill(diag)
     if request.method == 'POST':
         bill.is_active = False

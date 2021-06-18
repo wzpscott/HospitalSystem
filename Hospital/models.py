@@ -44,8 +44,8 @@ class Doctor(models.Model):
     identity_card_no = models.CharField(max_length=32, unique=True)  # 身份证号
 
     department = models.CharField(max_length=64, choices=department_choices)  # 科室
-    title = models.CharField(max_length=64, choices=title_choices)  # 职称
-    description = models.TextField(max_length=500, default='暂无简介')  # 简介
+    title = models.CharField(max_length=32, choices=title_choices)  # 职称
+    description = models.TextField(max_length=512, default='暂无简介')  # 简介
 
     create_time = models.DateTimeField(auto_now_add=True)  # 注册时间
 
@@ -62,7 +62,7 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)  # 医生
     create_time = models.DateTimeField(auto_now_add=True)  # 创建时间
     appointment_date = models.DateTimeField()  # 预约日期
-    appointment_time = models.CharField(max_length=10, choices=time_choices)  # 预约时间（上下午）
+    appointment_time = models.CharField(max_length=16, choices=time_choices)  # 预约时间（上下午）
     isActive = models.BooleanField(default=True)  # 是否有效
 
     def __str__(self):
@@ -92,7 +92,7 @@ class Medicine(models.Model):
         ('ml', '毫升'),
         ('box', '盒')
     )
-    name = models.CharField(max_length=50, unique=True)  # 药品名称
+    name = models.CharField(max_length=64, unique=True)  # 药品名称
     inventory = models.IntegerField()  # 库存量
     unit = models.CharField(max_length=10, choices=unit_choices)  # 单位
     price = models.DecimalField(max_digits=7, decimal_places=2)  # 单价

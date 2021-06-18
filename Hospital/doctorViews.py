@@ -6,7 +6,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from . import models
 from . import forms
 
-
 def register(request):
     # if request.session.get('is_login', None):
     #     login_type = request.session['login_type']
